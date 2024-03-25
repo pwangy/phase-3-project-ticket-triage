@@ -1,5 +1,5 @@
 from classes.__init__ import CURSOR, CONN
-from faker import Faker
+
 class Reviewer:
     all = {}
 
@@ -8,6 +8,10 @@ class Reviewer:
         self.name = name
         self.posts = []
     
+        def __repr__(self):
+            return f"<Reviewer {self.id}: {self.name}>"
+
+    # Attributes and Props
     @property
     def name(self):
         return self._name
@@ -21,22 +25,17 @@ class Reviewer:
         else:
             self._name = name
 
-    def __repr__(self):
-        return f"<Reviewer {self.id}: {self.name}>"
-
+    # ORM Class Methods
     @classmethod
     def create_table(cls):
         try:
             with CONN:
-                CURSOR.executescript(
+                CURSOR.execute(
                     """
-                    BEGIN;
                     CREATE TABLE IF NOT EXISTS reviewers (
                         id INTEGER PRIMARY KEY,
                         name TEXT
                     );
-                    CREATE INDEX idx_full_name ON reviewers (full_name);
-                    COMMIT
                     """
                 )
         except Exception as e:
@@ -54,6 +53,46 @@ class Reviewer:
         except Exception as e:
             return e
     
+    @classmethod
+    def create(cls, name):
+        try:
+            with CONN:
+                reviewer = cls(name)
+                reviewer.save()
+            return reviewer
+        except Exception as e:
+            return e
+    
+    @classmethod
+    def find_by_id(cls, id):
+        try:
+            CURSOR.execute(
+                """
+                SELECT * FROM reviewers
+                WHERE id is ?;
+                """,
+                (id,),
+            )
+            row = CURSOR.fetchone()
+            return cls(row[0]) if row else None
+        except Exception as e:
+            return e
+
+    @classmethod
+    def get_all(cls):
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                    SELECT * FROM reviewers;
+                    """
+                )
+                rows = CURSOR.fetchall()
+                return [cls(row[0], row[1]) for row in rows]
+        except Exception as e:
+            return e
+    
+    #ORM Instance Methods
     def save(self):
         try:
             with CONN:
@@ -67,15 +106,6 @@ class Reviewer:
                 self.id = CURSOR.lastrowid
                 type(self).all[self.id] = self
                 return self
-        except Exception as e:
-            return e
-
-    @classmethod
-    def create(cls, name):
-        try:
-            reviewer = cls(name)
-            rev = reviewer.save()
-            return rev
         except Exception as e:
             return e
 
@@ -106,36 +136,6 @@ class Reviewer:
             CONN.commit()
             del type(self).all[self.id]
             self.id = None
-        except Exception as e:
-            return e
-        
-
-    @classmethod
-    def find_by_id(cls, id):
-        try:
-            CURSOR.execute(
-                f"""
-                SELECT * FROM reviewers
-                WHERE id is ?;
-            """,
-            (id,),
-            )
-            row = CURSOR.fetchone()
-            return cls(row[1]) if row else None
-        except Exception as e:
-            return e
-
-    @classmethod
-    def get_all(cls):
-        try:
-            with CONN:
-                CURSOR.execute(
-                    """
-                    SELECT * FROM reviewers;
-                    """
-                )
-                rows = CURSOR.fetchall()
-                return [cls(row[1]) for row in rows]
         except Exception as e:
             return e
 
