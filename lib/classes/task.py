@@ -7,6 +7,8 @@ import datetime
 
 
 class Task:
+    all = {}
+
     def __init__(self, id, status, created_at, updated_at, post_id, reviewer_id):
         self.id = id
         self.status = status
@@ -93,25 +95,17 @@ class Task:
                     self.reviewer_id,
                     )
                 )
+            self.id = CURSOR.lastrowid 
+            type(self).all[self.id] = self
         except Exception as e:
             return 
 
     @classmethod
-    def create(self, status, created_at, updated_at, post_id, reviewer_id)
+    def create(cls, status, created_at, updated_at, post_id, reviewer_id):
         try:
-            with CONN:
-                CURSOR.execute("""
-                INSERT INTO tasks (status, created_at, updated_at, Post_id, Reviewer_id)
-                VALUES (?, ?, ?, ?, ?)""",
-                    (
-                    self.status = 0,
-                    self.created_at = datetime..now.isoform(),
-                    self.updated_at,
-                    self.post_id,
-                    self.reviewer_id,
-                    )
-                )
-            self.id = CURSOR.lastword
+            task = cls(status, created_at, updated_at, post_id, reviewer_id)
+            task.save()
+            return task 
         except Exception as e:
             return e 
 
@@ -125,9 +119,9 @@ class Task:
                 )
             self.updated_at = updated_at.datetime().now.isoform()
         except Exception as e:
+            cls.rollback(self):
             return e
-
-
+ calculate
     def delete(self):
         try:
             with CONN:
@@ -135,6 +129,7 @@ class Task:
                 DELETE FROM tasks WHERE id = ?
                 """)
         except Exception as e:
+            cls.rollback(self):
             return e
 
     @classmethod
@@ -148,19 +143,37 @@ class Task:
                 created_at DATETIME
                 updated_at DATETIME,
                 post_id INTEGER,
-                reviewer_id INTEGER)"""
+                reviewer_id INTEGER),
+                FOREIGN KEY (post_id) REFERENCES posts(id)),
+                FOREIGN KEY (reviewer_id) REFERENCES reviewers(id))
+                """)
+        except Exception as e:
+            return e
+
+    @classmethod
+    def new_from_db(cls):
+        try:
+            with CONN:
+                CURSOR.execute(
+                """
+                SELECT * FROM posts
+                ORDER BY id DESC
+                LIMIT 1;
+                """)
+                row = CURSOR.fetchone()
+            row = cls(row[1], row[2], row[3], row[0]) if row else None
         except Exception as e:
             return e
 
     @classmethod
     def drop_table(cls):
-      try:
-          with CONN:
-          CURSOR.execute("""
-          DROP TABLE IF EXISTS tasks
-          """) 
-      except Exception as e:
-          return e
+        try:
+            with CONN:
+                CURSOR.execute("""
+                DROP TABLE IF EXISTS tasks
+                """) 
+        except Exception as e:
+            return e
 
     @classmethod
     def find_by_id(cls, id):
