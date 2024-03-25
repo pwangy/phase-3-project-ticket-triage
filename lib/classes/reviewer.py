@@ -69,7 +69,7 @@ class Reviewer:
             CURSOR.execute(
                 """
                 SELECT * FROM reviewers
-                WHERE id is ?;
+                WHERE id = ?;
                 """,
                 (id,),
             )
@@ -100,7 +100,8 @@ class Reviewer:
                     """
                     INSERT INTO reviewers (name)
                     VALUES (?)
-                    """
+                    """,
+                    (self.name,),
                 )
                 CONN.commit()
                 self.id = CURSOR.lastrowid
