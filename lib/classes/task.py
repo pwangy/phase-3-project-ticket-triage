@@ -1,4 +1,3 @@
-
 from classes.__init__ import CURSOR, CONN
 from classes.post import Post
 from classes.status import Status
@@ -101,7 +100,7 @@ class Task:
                 self.id = CURSOR.lastrowid
                 type(self).all[self.id] = self
         except Exception as e:
-            return ("here is the failure")
+            return e
 
     @classmethod
     def create(cls, status, created_at, updated_at, post_id, reviewer_id):
@@ -111,6 +110,7 @@ class Task:
             return task
         except Exception as e:
             return f"{e} Task was not created"
+
 
     def update(self):
         try:
@@ -127,7 +127,7 @@ class Task:
                     """,
                     (
                         self.status,
-						self.created_at,
+                        self.created_at,
                         self.updated_at,
                         self.post_id,
                         self.reviewer_id,
