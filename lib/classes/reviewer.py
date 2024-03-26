@@ -2,7 +2,6 @@ from classes.__init__ import CURSOR, CONN
 
 class Reviewer:
     def __init__(self, name, id=None):
-        self.id = id
         self.name = name
         self.posts = []
     
@@ -19,9 +18,6 @@ class Reviewer:
         else:
             self._name = name
 
-    def __repr__(self):
-        return f"<Reviewer {self.id}: {self.name}>"
-
     @classmethod
     def create_table(cls):
         try:
@@ -34,7 +30,6 @@ class Reviewer:
             CURSOR.execute(sql)
             CONN.commit()
         except Exception as e:
-            CONN.rollback()
             return e
         
     @classmethod
@@ -45,9 +40,13 @@ class Reviewer:
             """
             CURSOR.execute(sql)
             CONN.commit()
+            self.id = CURSOR.lastrowid
+            return self
         except Exception as e:
+            CONN.rollback()
             return e
     
+
     def save(self):
         try:
             sql = """
@@ -65,6 +64,7 @@ class Reviewer:
     @classmethod
     def create(cls, name):
         try:
+            with CONN:
             reviewer = cls(name)
             rev = reviewer.save()
             return rev
@@ -80,6 +80,8 @@ class Reviewer:
             """
             CURSOR.execute(sql, (self.name, self.id))
             CONN.commit()
+                type(self).all[self.id] = self
+                return self
         except Exception as e:
             return e
 
@@ -88,14 +90,58 @@ class Reviewer:
             sql = """
                 DELETE FROM reviewers
                 WHERE id = ?
-            """
-            CURSOR.execute(sql, (self.id,))
-            CONN.commit()
+                    """,
+                    (self.id,),
+                )
+                CONN.commit()
+                del type(self).all[self.id]
+                self.id = None
+            return self
         except Exception as e:
             return e
         
-    
+    @classmethod
+    def find_by_id(cls, id):
+        try:
+            CURSOR.execute(
+                f"""
+                SELECT * FROM reviewers
+                WHERE id = ?;
+            """,
+            (id,)
+            )
+            row = CURSOR.fetchone()
+            return cls(row[0]) if row else None
+        except Exception as e:
+            return e
 
-    def posts_to_review(self):
-        # return [post for post in self.posts if not post.reviewed]
-        pass
+    @classmethod
+    def get_all(cls):
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                    SELECT * FROM reviewers;
+                    """
+                )
+                rows = CURSOR.fetchall()
+                return [cls(row[1], row[0]) for row in rows]
+        except Exception as e:
+            return e
+
+    def save(self):
+        try:
+            with CONN:
+                CURSOR.execute(
+            """
+            CURSOR.execute(sql, (self.id,))
+            CONN.commit()
+                self.id = CURSOR.lastrowid
+                type(self).all[self.id] = self
+            return self
+        except Exception as e:
+            return e
+        
+    # def tasks(self):
+    #     from classes.task import Task
+    
