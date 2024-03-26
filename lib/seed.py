@@ -11,16 +11,16 @@ fake = Faker()
 #CONN = sqlite3.connect("ticket_triage.db")
 #CURSOR = CONN.cursor()
 
-##def drop_tables():
-##    # Drop existing tables
-##    Task.drop_table()
-##    Reviewer.drop_table()
-##    Post.drop_table()
+def drop_tables():
+    # Drop existing tables
+    Task.drop_table()
+    Reviewer.drop_table()
+    Post.drop_table()
 
-#def create_tables():
-#    Post.create_table()
-#    Reviewer.create_table()
-    #Task.create_table()
+def create_tables():
+    Post.create_table()
+    Reviewer.create_table()
+    Task.create_table()
 
 def seed_tables(): 
     for _ in range(10):

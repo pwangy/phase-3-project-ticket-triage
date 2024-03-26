@@ -47,16 +47,16 @@ class Task:
 
     @property
     def updated_at(self):
-        return self.updated_at 
+        return self._updated_at 
 
     @updated_at.setter
     def updated_at(self, updated_at):
-        if not isinstance(updated_at, str):
-            raise ValueError("updated_at must be a DateTime string")
-        elif self.updated_at <= self.created_at:
-            raise ValueError("cannot update Task before it was created")
-        else:
             self._updated_at = updated_at
+        #if not isinstance(updated_at, str):
+        #    raise ValueError("updated_at must be a DateTime string")
+        #elif self.updated_at <= self.created_at:
+        #    raise ValueError("cannot update Task before it was created")
+        #else:
 
     @property
     def post_id(self):
@@ -64,9 +64,9 @@ class Task:
 
     @post_id.setter
     def post_id(self, post_id):
-        if not isinstance(Post.find_by_id(post_id), Post):
-            raise ValueError("post_id is not found")
-        else:
+        #if not isinstance(Post.find_by_id(post_id), Post):
+        #    raise ValueError("post_id is not found")
+        #else:
             self._post_id = post_id
 
     def post(self):
@@ -88,8 +88,7 @@ class Task:
             with CONN:
                 CURSOR.execute(
                     """
-                    INSERT INTO tasks (status, created_at, updated_at, post_id, reviewer_id)
-                    VALUES (?, ?, ?, ?, ?)
+                    INSERT INTO tasks (status, created_at, updated_at, post_id, reviewer_id) VALUES (?, ?, ?, ?, ?)
                     """,
                     (
                         self.status,
@@ -102,14 +101,14 @@ class Task:
                 self.id = CURSOR.lastrowid
                 type(self).all[self.id] = self
         except Exception as e:
-            return ("here is the failure"	)
+            return ("here is the failure")
 
     @classmethod
-    def create(cls, status, created_at, updated_at, post_id, reviewer_id, id=None):
+    def create(cls, status, created_at, updated_at, post_id, reviewer_id):
         try:
-            task = cls(status, created_at, updated_at, post_id, reviewer_id, id)
-            task.save(self)
-            return task.values()
+            task = cls(status, created_at, updated_at, post_id, reviewer_id)
+            task.save()
+            return task
         except Exception as e:
             return f"{e} Task was not created"
 
@@ -120,6 +119,7 @@ class Task:
                     """
                     UPDATE tasks 
                     SET status = ?, 
+                        created_at = ?,
                         updated_at = ?, 
                         post_id = ?, 
                         reviewer_id = ?

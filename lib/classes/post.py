@@ -137,13 +137,13 @@ class Post:
             with CONN:
                 CURSOR.execute(
                     """
-                    SELECT * FROM posts
-                    WHERE id is ?;
-                    """
-                    (id,),
+                        SELECT * FROM posts
+                        WHERE id is ?
+                    """,
+                    (id,)
                 )
                 row = CURSOR.fetchone()
-                return cls(row[1], row[2], row[3], row[0]) if row else None
+            return cls(row[1], row[2], row[3], row[0]) if row else None
         except Exception as e:
             return e
 

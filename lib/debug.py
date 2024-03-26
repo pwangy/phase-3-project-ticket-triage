@@ -11,6 +11,7 @@ from classes.task import Task
 
 #console = Console()
 
+
 def setup_db():
 		Task.drop_table()
 		Reviewer.drop_table()
@@ -58,8 +59,8 @@ def setup_db():
 		t1 = Task.create(2, "Mon", "Tues", 2, 1)
 		t2 = Task.create(1, "1", "F", 4, 3)
 		t3 = Task.create(3, "t", "s", 3, 4)
+		import ipdb; ipdb.set_trace()
 
 if __name__ == '__main__':
 		setup_db()
 		print('db seeded!')
-		import ipdb; ipdb.set_trace()
