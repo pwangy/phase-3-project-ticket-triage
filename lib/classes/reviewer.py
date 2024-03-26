@@ -5,9 +5,9 @@ from classes.__init__ import CURSOR, CONN
 class Reviewer:
     all = {}
 
-		def __init__(self, name, id=None):
-				self.name = name
-				self.id = id
+    def __init__(self, name, id=None):
+            self.name = name
+            self.id = id
 
     @classmethod
     def create_table(cls):
@@ -23,7 +23,7 @@ class Reviewer:
                 )
         except Exception as e:
             return e
-        
+
     @classmethod
     def drop_table(cls):
         try:
@@ -79,7 +79,7 @@ class Reviewer:
             return self
         except Exception as e:
             return e
-        
+
     @classmethod
     def find_by_id(cls, id):
         try:
