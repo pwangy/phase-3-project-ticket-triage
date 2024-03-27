@@ -43,7 +43,7 @@ class Post:
     @total_interactions.setter
     def total_interactions(self, total_interactions):
         if not isinstance(total_interactions, int):
-            raise ValueError(f"'total_interactions' must be an integer.")
+            raise ValueError("'total_interactions' must be an integer.")
         else:
             self._total_interactions = total_interactions
 
@@ -54,7 +54,7 @@ class Post:
     @content_type.setter
     def content_type(self, content_type):
         if not content_type in CONTENT_TYPES:
-            raise ValueError(f"'content_type' must be in list of CONTENT_TYPES.")
+            raise ValueError("'content_type' must be in list of CONTENT_TYPES.")
         else:
             self._content_type = content_type
 
@@ -65,13 +65,13 @@ class Post:
     @created_at.setter
     def created_at(self, value):
         if not isinstance(value, datetime):
-            raise TypeError(f"'created_at' must be a valid datetime object.")
+            raise TypeError("'created_at' must be a valid datetime object.")
         else:
             self._created_at = value
 
     def review_badge(self, new_review_badge):
         if not new_review_badge in FACT_CHECKED:
-            raise ValueError(f"'review_badge' must be in list of FACT_CHECKED.")
+            raise ValueError(f"'review_badge' must be in list FACT_CHECKED.")
         else:
             self.review_badge = new_review_badge
 

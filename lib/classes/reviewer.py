@@ -9,6 +9,22 @@ class Reviewer:
             self.name = name
             self.id = id
 
+    def __repr__(self):
+        return (
+            f"""<Reviewer {self.id}: {self.name}>"""
+        )
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string.")
+        else:
+            self._name = name
+
     @classmethod
     def create_table(cls):
         try:
@@ -41,8 +57,7 @@ class Reviewer:
         try:
             with CONN:
                 reviewer = cls(name)
-                rev = reviewer.save()
-            return rev
+            return reviewer.save()
         except Exception as e:
             return e
 
@@ -126,20 +141,19 @@ class Reviewer:
         except Exception as e:
             return e
 
-    # def tasks(self):
-    #     from classes.task import Task
+    def tasks(self):
+        from classes.task import Task
 
-    #     try:
-    #         with CONN:
-    #             CURSOR.execute(
-    #                 """
-    #                     SELECT * FROM tasks
-    #                     WHERE reviewer_id = ?
-    #                 """,
-    #                 (self.id,),
-    #             )
-    #             rows = CURSOR.fetchall()
-    #             # return [Task()]
-    #     except Exception as e:
-    #         return e
-    #     pass
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                        SELECT * FROM tasks
+                        WHERE reviewer_id = ?
+                    """,
+                    (self.id,),
+                )
+                rows = CURSOR.fetchall()
+                return [Task(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows]
+        except Exception as e:
+            return e
