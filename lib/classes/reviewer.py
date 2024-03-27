@@ -9,6 +9,22 @@ class Reviewer:
             self.name = name
             self.id = id
 
+    def __repr__(self):
+        return (
+            f"""<Reviewer {self.id}: {self.name}>"""
+        )
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string.")
+        else:
+            self._name = name
+    
     @classmethod
     def create_table(cls):
         try:
@@ -41,8 +57,7 @@ class Reviewer:
         try:
             with CONN:
                 reviewer = cls(name)
-                rev = reviewer.save()
-            return rev
+            return reviewer.save()
         except Exception as e:
             return e
 
