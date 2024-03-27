@@ -36,7 +36,6 @@ def update_reviewers():
         try:
             name = input("Enter the reviewer's new name: ")
             reviewer.name = name
-
             reviewer.update()
             print(f'Success: {reviewer}')
         except Exception as e:
