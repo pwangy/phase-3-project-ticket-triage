@@ -62,13 +62,15 @@ def find_post_by_id():
     id_ = input("Enter the post's id: ")
     post = Post.find_by_id(id_)
     print(post) if post else print(f'Post {id_} not found')
-
+    
 def update_post_badge():
     new_badge = Post.review_badge()
     if new_badge:
         new_badge.rev
 
+
 #Task
+#! There is no get all method. we need that.
 def list_tasks():
     tasks = Task.get_all()
     if tasks:
@@ -78,7 +80,7 @@ def list_tasks():
         print("I am sorry, it looks like we have no tasks in our system")
 
 def list_tasks_by_user():
-    pass
+   pass
 
 #by date (oldest to newest) ((sort))
 #something that updates the task [1] assigned, [2] in progress, [3] closed, [4] unassigned
@@ -100,3 +102,4 @@ def update_task_status(task_id, new_status):
         print(f"Task {task_id} updated successfully.")
     else:
         print(f"Task {task_id} not found.")
+
