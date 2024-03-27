@@ -84,7 +84,7 @@ class Reviewer:
     def find_by_id(cls, id):
         try:
             CURSOR.execute(
-                f"""
+                """
                 SELECT * FROM reviewers
                 WHERE id = ?;
             """,
