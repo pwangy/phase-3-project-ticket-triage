@@ -1,6 +1,9 @@
 # lib/cli.py
 import ipdb
+import random
+
 from helpers import (
+    welcome,
     exit_program,
     list_reviewers,
     find_reviewer_by_id,
