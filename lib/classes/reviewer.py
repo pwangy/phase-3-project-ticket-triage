@@ -126,20 +126,20 @@ class Reviewer:
         except Exception as e:
             return e
 
-    # def tasks(self):
-    #     from classes.task import Task
+    def tasks(self):
+        from classes.task import Task
 
-    #     try:
-    #         with CONN:
-    #             CURSOR.execute(
-    #                 """
-    #                     SELECT * FROM tasks
-    #                     WHERE reviewer_id = ?
-    #                 """,
-    #                 (self.id,),
-    #             )
-    #             rows = CURSOR.fetchall()
-    #             # return [Task()]
-    #     except Exception as e:
-    #         return e
-    #     pass
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                        SELECT * FROM tasks
+                        WHERE reviewer_id = ?
+                    """,
+                    (self.id,),
+                )
+                rows = CURSOR.fetchall()
+                return [Task(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows]
+        except Exception as e:
+            return e
+        

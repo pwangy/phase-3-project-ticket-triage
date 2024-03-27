@@ -3,6 +3,9 @@ from classes.reviewer import Reviewer
 from classes.post import Post
 from classes.task import Task
 
+def welcome():
+    print("Welcome Reviewer!")
+
 def exit_program():
     print("Goodbye!")
     exit()
@@ -63,12 +66,40 @@ def find_post_by_id():
 def create_post():
     pass
 
-def update_post():
+def update_post_badge():
+    new_badge = Post.review_badge()
+    if new_badge:
+        new_badge.rev
+
+#! There is no get all method. we need that.
+def list_tasks():
+    tasks = Task.get_all()
+    if tasks:
+        for tasks in tasks:
+            return tasks
+    else:
+        print("I am sorry, it looks like we have no tasks in our system")
+
+def list_tasks_by_user():
     pass
 
-def delete_post():
+#by date (oldest to newest) ((sort))
+#something that updates the task [1] assigned, [2] in progress, [3] closed, [4] unassigned
+#sort by status, sort by date, create task, update task
+
+def update_task():
     pass
-  
-#Task
-def list_tasks():
-    pass
+
+def sort_task_by_status(tasks):
+    return sorted(tasks, key=lambda x: x.status)
+
+def sort_task_by_date(tasks):
+    return sorted(tasks, key=lambda x: x.created_at)
+
+def update_task_status(task_id, new_status):
+    task = Task.find_by_id(task_id)
+    if task:
+        task.update_status(new_status)
+        print(f"Task {task_id} updated successfully.")
+    else:
+        print(f"Task {task_id} not found.")

@@ -1,6 +1,7 @@
 # lib/cli.py
 import ipdb
 from helpers import (
+    welcome,
     exit_program,
     list_reviewers,
     find_reviewer_by_id,
@@ -58,5 +59,5 @@ def menu():
     print("10: Delete post")
 
 if __name__ == "__main__":
-random.seed(0)
-	main()
+    random.seed(0)
+main()
