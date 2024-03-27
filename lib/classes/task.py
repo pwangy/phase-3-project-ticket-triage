@@ -3,7 +3,7 @@ from classes.__init__ import CURSOR, CONN
 from classes.post import Post
 from classes.status import Status
 from classes.reviewer import Reviewer
-from datetime import date
+
 
 class Task:
     all = {}
@@ -184,7 +184,7 @@ def update_task_status():
     id_ = input("Enter the Task Id Number: ")
     if task := Task.find_by_id(id_):
         try:         
-            status = input(Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified)
+            status = input("Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified")
             task.status = status
             print(f'Status Changed to: {status}')
         except Exception as e:
