@@ -1,7 +1,6 @@
 #!/user/bin/env python3
 from faker import Faker
-
-from classes.__init__ import CONN, CURSOR
+import random
 from classes.post import Post
 from classes.reviewer import Reviewer
 from classes.task import Task
@@ -17,6 +16,16 @@ def create_tables():
     Post.create_table()
     Reviewer.create_table()
     Task.create_table()
+    
+#     CURSOR.execute('''CREATE TABLE IF NOT EXISTS tasks (status TEXT, created_at TEXT, updated_at TEXT, post_id INTEGER, reviewer_id INTEGER)''')
+#     for _ in range(200):
+#         CURSOR.execute('INSERT INTO tasks VALUES (?, ?, ?, ?, ?)', (
+#             random.choice(['Unseen', 'In_Review', 'Completed']),
+#             fake.date(),
+#             fake.date(),
+#             random.randint(1, 1000000),
+#             random.randint(1, 20)
+#         ))
 
 def seed_tables():
     for _ in range(10):

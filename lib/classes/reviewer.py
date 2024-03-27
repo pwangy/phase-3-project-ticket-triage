@@ -6,27 +6,8 @@ class Reviewer:
     all = {}
 
     def __init__(self, name, id=None):
-        self.name = name
-        self.posts = []
-        self.id = id
-
-    def __repr__(self):
-        return (
-            f"<Reviewer {self.id}: {self.name}>"
-            )
-    
-    @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        if not isinstance(name, str):
-            raise TypeError("Name must be a string")
-        elif len(name) <= 2:
-            raise ValueError("Name must be at least two chars inclusive.")
-        else:
-            self._name = name
+            self.name = name
+            self.id = id
 
     @classmethod
     def create_table(cls):
@@ -42,7 +23,7 @@ class Reviewer:
                 )
         except Exception as e:
             return e
-        
+
     @classmethod
     def drop_table(cls):
         try:
@@ -98,7 +79,7 @@ class Reviewer:
             return self
         except Exception as e:
             return e
-        
+
     @classmethod
     def find_by_id(cls, id):
         try:
@@ -110,7 +91,7 @@ class Reviewer:
             (id,)
             )
             row = CURSOR.fetchone()
-            return cls(row[0]) if row else None
+            return cls(row[1], row[0]) if row else None
         except Exception as e:
             return e
 

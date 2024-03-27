@@ -68,6 +68,7 @@ def update_post():
 
 def delete_post():
     pass
+  
 #Task
 def list_tasks():
     pass
