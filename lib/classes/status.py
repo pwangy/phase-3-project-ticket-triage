@@ -1,11 +1,7 @@
 from enum import Enum 
 
 class Status(Enum):
-	unseen = 1
-	reviewing = 2
-	invalid = 3
-	valid = 4
-
-
-
-
+	assigned = 1
+	in_progress = 2
+	closed = 3
+	unassigned = 4

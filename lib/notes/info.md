@@ -2,7 +2,7 @@
 
 ## Classes
 - [ ] Posts - can have a Task
-- [ ] Tasks - each task will have a Post and a Reviewer
+- [ ] Tasks - each task will have a Post and a Reviewer (reviewers assigned randomally -- stretch?)
 - [ ] Reviewer - will have a list of Tasks (which points to the Post)
 
 
@@ -10,7 +10,7 @@
 - [ ] once a post reaches viral status, a Task is created and assigned a Reviewer
 
 
-## CLI: For each user(Reviewer) can:
+## CLI: User(Reviewer) can:
 - [ ] create an object
 - [ ] delete an object 
 - [ ] display all objects 
@@ -21,6 +21,20 @@
 - [ ] If factual: post get a badge of being Verified
 - [ ] If not factual: gets a badge of being Debunked
 - [ ] Badge = attribute which lives in the post, but updated through the Task
+- reviewer should be able to log in and check their list of tasks
+- view post by id, find 1
+- update task 
+- update post
+- manage reviewers as a sub menu
+- identifiy who user is
+- see all posts
+  - see posts by inteactions
+  - 
+- see all tasks
+  - by date
+
+b
+usub menu - find 
 
 
 ## Stretch:
