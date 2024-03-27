@@ -2,14 +2,13 @@ from classes.__init__ import CURSOR, CONN
 from classes.post import Post
 from classes.status import Status
 from classes.reviewer import Reviewer
-from datetime import datetime
 
 class Task:
     all = {}
 
     def __init__(self, status, created_at, updated_at, post_id, reviewer_id, id=None):
         self.status = status
-        self.created_at = created_at  # Use the setter method
+        self.created_at = created_at 
         self.updated_at = updated_at
         self.post_id = post_id
         self.reviewer_id = reviewer_id
@@ -32,7 +31,7 @@ class Task:
     @status.setter
     def status(self, status):
         if status in range(1, 4):
-            self._status = status
+            self._status = Status
         else:
             raise ValueError("Status must be 1, 2, or 3")
 
@@ -50,12 +49,10 @@ class Task:
 
     @updated_at.setter
     def updated_at(self, updated_at):
+        if not isinstance(updated_at, str):
+            raise ValueError("updated_at must be a DateTime string")
+        else:
             self._updated_at = updated_at
-        #if not isinstance(updated_at, str):
-        #    raise ValueError("updated_at must be a DateTime string")
-        #elif self.updated_at <= self.created_at:
-        #    raise ValueError("cannot update Task before it was created")
-        #else:
 
     @property
     def post_id(self):
@@ -110,7 +107,6 @@ class Task:
             return task
         except Exception as e:
             return f"{e} Task was not created"
-
 
     def update(self):
         try:
@@ -178,3 +174,16 @@ class Task:
                 CURSOR.execute("DROP TABLE IF EXISTS tasks")
         except Exception as e:
             return e
+
+#CLI and Association Methods
+def update_task_status():
+    id_ = input("Enter the Task Id Number: ")
+    if task := Task.find_by_id(id_):
+        try:         
+            status = input("Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified")
+            task.status = status
+            print(f'Status Changed to: {status}')
+        except Exception as e:
+            print("Error updating statu: ",e)
+    else:
+        print(f'Task{id_} not found')
