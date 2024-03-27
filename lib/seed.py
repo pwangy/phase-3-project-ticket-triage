@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 
 from faker import Faker
@@ -31,7 +32,7 @@ def seed_tables():
 
     for _ in range(10):
         try:
-            Post.create(fake.number())
+            Post.create(fake.number(1, 140), random.choice(")
         except Exception as e:
             return e
 

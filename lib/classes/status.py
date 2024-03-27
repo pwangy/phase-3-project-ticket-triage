@@ -5,7 +5,3 @@ class Status(Enum):
 	reviewing = 2
 	invalid = 3
 	valid = 4
-
-
-
-
