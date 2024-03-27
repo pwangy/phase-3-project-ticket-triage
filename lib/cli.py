@@ -41,7 +41,7 @@ def main():
         elif choice == "10":
             delete_post()
         else:
-            print("Invalid choice")
+            print("That option doesn't exist, please choose an option from the menu.")
 
 def menu():
     print("Please select an option:")
@@ -58,5 +58,5 @@ def menu():
     print("10: Delete post")
 
 if __name__ == "__main__":
-random.seed(0)
-	main()
+    random.seed(0)
+    main()
