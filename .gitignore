@@ -59,6 +59,7 @@ __pycache__
 
 *.db
 */*.db
+*.db-journal
 migrations
 instance
 

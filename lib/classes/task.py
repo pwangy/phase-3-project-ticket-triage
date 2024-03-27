@@ -1,9 +1,7 @@
-
 from classes.__init__ import CURSOR, CONN
 from classes.post import Post
 from classes.status import Status
 from classes.reviewer import Reviewer
-
 
 class Task:
     all = {}
@@ -99,7 +97,7 @@ class Task:
                 self.id = CURSOR.lastrowid
                 type(self).all[self.id] = self
         except Exception as e:
-            return ("here is the failure")
+            return e
 
     @classmethod
     def create(cls, status, created_at, updated_at, post_id, reviewer_id):
@@ -125,7 +123,7 @@ class Task:
                     """,
                     (
                         self.status,
-						self.created_at,
+                        self.created_at,
                         self.updated_at,
                         self.post_id,
                         self.reviewer_id,
@@ -177,9 +175,7 @@ class Task:
         except Exception as e:
             return e
 
-
 #CLI and Association Methods
-
 def update_task_status():
     id_ = input("Enter the Task Id Number: ")
     if task := Task.find_by_id(id_):
@@ -191,4 +187,3 @@ def update_task_status():
             print("Error updating statu: ",e)
     else:
         print(f'Task{id_} not found')
-
