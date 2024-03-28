@@ -22,13 +22,14 @@ class Post:
         self.total_interactions = total_interactions
         self.content_type = content_type
         self.created_at = datetime.now()
-        self.review_badge = None # All posts set to None until reviewed
+        self.review_badge = None
         self.is_viral = self.calculate_virality(total_interactions)
+        self.task = None
         self.id = id
 
     def __repr__(self):
         return (
-            f"""<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self.review_badge}>"""
+            f"<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self.review_badge}>"
         )
 
     @staticmethod # belongs to class, not its instances. can be called without creating an instance
@@ -43,7 +44,7 @@ class Post:
     @total_interactions.setter
     def total_interactions(self, total_interactions):
         if not isinstance(total_interactions, int):
-            raise ValueError("'total_interactions' must be an integer.")
+            raise ValueError("total_interactions must be an integer.")
         else:
             self._total_interactions = total_interactions
 
@@ -54,7 +55,7 @@ class Post:
     @content_type.setter
     def content_type(self, content_type):
         if not content_type in CONTENT_TYPES:
-            raise ValueError("'content_type' must be in list of CONTENT_TYPES.")
+            raise ValueError("content_type must be in list of CONTENT_TYPES.")
         else:
             self._content_type = content_type
 
@@ -71,33 +72,27 @@ class Post:
 
     def review_badge(self, new_review_badge):
         if not new_review_badge in FACT_CHECKED:
-            raise ValueError("'review_badge' must be in list FACT_CHECKED.")
+            raise ValueError("review_badge must be in list FACT_CHECKED.")
         else:
-            self.review_badge = new_review_badge
+            self._review_badge = new_review_badge
 
+    @property
     def is_viral(self, total_interactions):
         if total_interactions >= 3500000:
             self.is_viral = True
         else:
             self.is_viral = False
 
+#! Association Methods
     def task(self):
         from classes.task import Task
-
-        try:
-            with CONN:
-                CURSOR.execute(
-                    """
-                    SELECT * FROM tasks
-                    WHERE post_id = ?
-                    """,
-                    (self.id,),
-                )
-                rows = CURSOR.fetchall()
-                return [Task(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows]
-        except Exception as e:
-            return e
-    # ! if has task, get/show task status
+        existing_task = Task.find_by('post_id', self.id)
+        if existing_task:
+            raise AttributeError("A task already exists for this post.")
+        elif not self.is_viral:
+            raise AttributeError("A post must be viral in order to create a task.")
+        else: Task.create(self.id, status=4)
+        
 
     #! ORM Class Methods
     @classmethod
@@ -144,7 +139,12 @@ class Post:
     @classmethod #create new instantance of Post based on info in db
     def new_from_db(cls, row):
         try:
-            post = cls(row[1], row[2], row[3], row[4], row[5], row[0])
+            post = cls(
+                total_interactions=row[1],
+                content_type=row[2],
+                review_badge=row[4],
+                id=row[0]
+            )
             cls.all[post.id] = post
             return post
         except Exception as e:

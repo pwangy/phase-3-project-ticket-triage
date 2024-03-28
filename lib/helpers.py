@@ -71,7 +71,6 @@ def update_post_badge():
     if new_badge:
         new_badge.rev
 
-
 #Task
 #! There is no get all method. we need that.
 def list_tasks():
@@ -105,4 +104,3 @@ def update_task_status(task_id, new_status):
         print(f"Task {task_id} updated successfully.")
     else:
         print(f"Task {task_id} not found.")
-

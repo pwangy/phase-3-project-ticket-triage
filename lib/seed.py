@@ -53,16 +53,14 @@ def seed_tables():
         except Exception as e:
             print("Failed to create Post: ", e)
 
-    t3 = Task.create(3, 3, 4)
-
-    for _ in range(250):
+def seed_tasks():
+    posts = Post.get_all()
+    for post in posts:
         try:
-            Task.create(fake.random_element(elements=STATUS_TYPES), 
-                
-            )
-            print('Created task')
+            post.task()
+            print('Created task for post: ', post.id)
         except Exception as e:
-            print("Failed to create Post: ", e)
+            print("Failed to create Task: ", e)
 
 if __name__ == "__main__":
     drop_tables()
@@ -70,5 +68,7 @@ if __name__ == "__main__":
     create_tables()
     print("Tables created!")
     seed_tables()
-    print("Seed data complete!")
+    print("Seed reviewers and posts!")
+    seed_tasks()
+    print("Finished seeding Tasks! ticket_triage.db has been seeded!")
     import ipdb; ipdb.set_trace()

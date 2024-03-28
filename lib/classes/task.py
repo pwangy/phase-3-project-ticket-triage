@@ -17,7 +17,7 @@ class Task:
         self.post_id = post_id
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        self.reviewer_id = None
+        self.reviewer_id = 0
         self.status = status
         self.id = id
 
@@ -49,6 +49,32 @@ class Task:
         else:
             self._updated_at = value
 
+    @property
+    def post_id(self):
+        return self._post_id
+
+    @post_id.setter
+    def post_id(self, post_id):
+        from classes.post import Post
+        if not isinstance(post_id, int):
+            raise TypeError("Post_id must be an integer")
+        elif post_id < 1 or not Post.find_by_id(post_id):
+            raise ValueError("Post ID must be a positive integer and pointing to an existing post.")
+        else:
+            self._post_id = post_id
+
+    @property
+    def reviewer_id(self):
+        return self._reviewer_id
+
+    @reviewer_id.setter
+    def reviewer_id(self, reviewer_id):
+        from classes.post import Post
+        if not isinstance(reviewer_id, int):
+            raise TypeError("Reviewer_id must be an integer")
+        else:
+            self._reviewer_id = reviewer_id
+
     def status(self, new_status):
         if not new_status in STATUS_TYPES:
             raise ValueError("'status' must be in list of STATUS_TYPES")
@@ -56,37 +82,13 @@ class Task:
             self.status = new_status
 
 #! Association Methods
-    def post_id(self):
+    def post(self):
         from classes.post import Post
-        try:
-            with CONN:
-                CURSOR.execute(
-                    """
-                    SELECT * FROM post
-                    WHERE post_id = ?
-                    """,
-                    (self.id,),
-                )
-                rows = CURSOR.fetchall()
-                return [Post(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows]
-        except Exception as e:
-            return e
+        return Post.find_by_id(self.post_id) if self.post_id else None
 
-    def reviewer_id(self):
+    def reviewer(self):
         from classes.reviewer import Reviewer
-        try:
-            with CONN:
-                CURSOR.execute(
-                    """
-                    SELECT * FROM reviewer
-                    WHERE reviewer_id = ?
-                    """,
-                    (self.id,),
-                )
-                rows = CURSOR.fetchall()
-                return [Reviewer(row[1], row[0]) for row in rows]
-        except Exception as e:
-            return e
+        return Reviewer.find_by_id(self.reviewer_id) if self.reviewer_id else None
 
     #! ORM Class Methods
     @classmethod
