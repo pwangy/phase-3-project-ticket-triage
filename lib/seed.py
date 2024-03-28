@@ -12,6 +12,13 @@ CONTENT_TYPES = [
     'Text'
 ]
 
+STATUS_TYPES = [
+    1, # assigned
+    2, # in_progress
+    3, # closed
+    4 # unassigned
+]
+
 def drop_tables():
     Task.drop_table()
     Reviewer.drop_table()
@@ -46,16 +53,16 @@ def seed_tables():
         except Exception as e:
             print("Failed to create Post: ", e)
 
-    # for _ in range(100):
-    #     try:
-    #         reviewers = Reviewer.get_all()
-    #         posts = Post.get_all()
-    #         Task.create(
-    #             # put things here
-    #         )
-    #         print('Created task')
-    #     except Exception as e:
-    #         return e
+    t3 = Task.create(3, 3, 4)
+
+    for _ in range(250):
+        try:
+            Task.create(fake.random_element(elements=STATUS_TYPES), 
+                
+            )
+            print('Created task')
+        except Exception as e:
+            print("Failed to create Post: ", e)
 
 if __name__ == "__main__":
     drop_tables()

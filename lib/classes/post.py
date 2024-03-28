@@ -31,7 +31,7 @@ class Post:
             f"""<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self.review_badge}>"""
         )
 
-    @staticmethod # belongs class, not its instances. can be called without creating an instance
+    @staticmethod # belongs to class, not its instances. can be called without creating an instance
     def calculate_virality(total_interactions):
         return total_interactions >= 3500000
 
@@ -71,7 +71,7 @@ class Post:
 
     def review_badge(self, new_review_badge):
         if not new_review_badge in FACT_CHECKED:
-            raise ValueError(f"'review_badge' must be in list FACT_CHECKED.")
+            raise ValueError("'review_badge' must be in list FACT_CHECKED.")
         else:
             self.review_badge = new_review_badge
 
