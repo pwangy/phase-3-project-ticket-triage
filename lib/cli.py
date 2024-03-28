@@ -45,7 +45,6 @@ def main():
             print("That option doesn't exist, please choose an option from the menu.")
 
 #! Sub Menus
-
 def manage_all_tasks():
     m = "manage tasks"
     while m == "manage tasks":
@@ -175,36 +174,36 @@ def menu():
 
 def my_task_menu():
     print("[bold cyan]My Tasks[/bold cyan]")
-    print("0: Begin Task")
-    print("1: Update Post Badge")
-    print("2: Complete Task")
-    print("3: Task List")
-    print("4: Back to Main Menu")
-    print("5: Exit program")
-    print("6: Help")
+    print("[bold green]0[/bold green]: Begin Task")
+    print("[bold green]1[/bold green]: Update Post Badge")
+    print("[bold green]2[/bold green]: Complete Task")
+    print("[bold green]3[/bold green]: Task List")
+    print("[bold green]4[/bold green]: Back to Main Menu")
+    print("[bold green]5[/bold green]: Exit program")
+    print("[bold green]6[/bold green]: Help")
 
 def task_mgmt_menu():
     print("[bold cyan]Manage Tasks[/bold cyan]")
-    print("0. Create Tasks")
-    print("1. Sort Tasks")
-    print("2. Find Task by Reviewer Id")
-    print("3. Find Task by Post Id")
-    print("4. Find Task by Status")
-    print("5. Update Task Reviewer")
-    print("6. Back to Main Menu")
-    print("7. Exit program")
-    print("8. Help")
+    print("[bold green]0[/bold green]: Create Tasks")
+    print("[bold green]1[/bold green]: Sort Tasks")
+    print("[bold green]2[/bold green]: Find Task by Reviewer Id")
+    print("[bold green]3[/bold green]: Find Task by Post Id")
+    print("[bold green]4[/bold green]: Find Task by Status")
+    print("[bold green]5[/bold green]: Update Task Reviewer")
+    print("[bold green]6[/bold green]: Back to Main Menu")
+    print("[bold green]7[/bold green]: Exit program")
+    print("[bold green]8[/bold green]: Help")
 
 def post_mgmt_menu():
     print("[bold cyan]Manage Posts[/bold cyan]")
-    print("0. View All")
-    print("1. Most Viral Post")
-    print("2. Sort Post by Oldest to Newest")
-    print("3. Find Post by Id")
-    print("4. Find Post by Reviewer")
-    print("5. Back to Main Menu")
-    print("6. Exit program")
-    print("7. Help")
+    print("[bold green]0[/bold green]: View All")
+    print("[bold green]1[/bold green]: Most Viral Post")
+    print("[bold green]2[/bold green]: Sort Post by Oldest to Newest")
+    print("[bold green]3[/bold green]: Find Post by Id")
+    print("[bold green]4[/bold green]: Find Post by Reviewer")
+    print("[bold green]5[/bold green]: Back to Main Menu")
+    print("[bold green]6[/bold green]: Exit program")
+    print("[bold green]7[/bold green]: Help")
 
 def reviewer_mgmt_menu():
     print("[bold cyan]Manage Reviewers[/bold cyan]")
