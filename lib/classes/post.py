@@ -29,7 +29,7 @@ class Post:
 
     def __repr__(self):
         return (
-            f"<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self.review_badge}>"
+            f"""<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self.review_badge}>"""
         )
 
     @staticmethod # belongs to class, not its instances. can be called without creating an instance
@@ -74,9 +74,8 @@ class Post:
         if not new_review_badge in FACT_CHECKED:
             raise ValueError("review_badge must be in list FACT_CHECKED.")
         else:
-            self._review_badge = new_review_badge
+            self.review_badge = new_review_badge
 
-    @property
     def is_viral(self, total_interactions):
         if total_interactions >= 3500000:
             self.is_viral = True
@@ -107,6 +106,7 @@ class Post:
                         content_type TEXT,
                         created_at TEXT,
                         review_badge TEXT,
+                        task INTEGER,
                         is_viral TEXT
                     );
                     """
