@@ -2,37 +2,46 @@
 from classes.reviewer import Reviewer
 from classes.post import Post
 from classes.task import Task
+    # import ipdb; ipdb.set_trace()
 
-def welcome():
-    print("Welcome Reviewer!")
-    exit()
 
 def exit_program():
-    print("Goodbye!")
+    print("Thanks for reviewing!")
     exit()
 
-def help():
-    print("Help")
-
-#Reviewer
+#! Reviewer Helpers
 def list_reviewers():
     reviewers = Reviewer.get_all()
     for reviewer in reviewers:
-        return reviewer
+        print(reviewer)
     
 def find_reviewer_by_id():
-    id_ = ("Enter the reviewer's id: ")
+    id_ = input("Enter the reviewer's id: ")
     reviewer = Reviewer.find_by_id(id_)
     print(reviewer) if reviewer else print(f'Reviewer {id_} not found')
 
-def create_reviewer():
-    id = input("Enter the reviewer's id: ")
+def find_reviewer_by_name():
     name = input("Enter the reviewer's name: ")
-    try:
-        reviewer = Reviewer.create(id, name)
-        print(f'Success: {reviewer}')
-    except Exception as e:
-        return e
+    reviewer_by_name = [reviewer for reviewer in Reviewer.get_all() if reviewer.name.lower() == name.lower()]
+    if reviewer_by_name:
+        for reviewer in reviewer_by_name:
+            print(reviewer)
+    else:
+        print(f'Reviewer {name} not found')
+
+def create_reviewer():    
+    user_is_not_created = True
+    while(user_is_not_created):
+        name = input("Enter the new reviewer's name: ")
+        if len(name) < 2:
+            print("Name must be at least 2 characters.")
+        else:
+            try:
+                reviewer = Reviewer.create(name)
+                print(f'Successfully Added: {reviewer}')
+                user_is_not_created = False
+            except Exception as e:
+                return e
 
 def update_reviewers():
     id_ = input("Enter the reviewer's id: ")
@@ -55,7 +64,7 @@ def delete_reviewer():
     else:
         print(f'Reviewer {id_} not found')
 
-#Post
+#! Post Helpers
 def list_posts():
     posts = Post.get_all()
     for post in posts:
@@ -71,9 +80,7 @@ def update_post_badge():
     if new_badge:
         new_badge.rev
 
-
-#Task
-#! There is no get all method. we need that.
+#! Task Helpers
 def list_tasks():
     tasks = Task.get_all()
     if tasks:
@@ -82,27 +89,42 @@ def list_tasks():
     else:
         print("I am sorry, it looks like we have no tasks in our system")
 
-def list_tasks_by_user():
+def create_task():
     pass
 
-#by date (oldest to newest) ((sort))
-#something that updates the task [1] assigned, [2] in progress, [3] closed, [4] unassigned
-#sort by status, sort by date, create task, update task
-
-def update_task():
+def update_task_reviewer():
     pass
 
-def sort_task_by_status(tasks):
-    return sorted(tasks, key=lambda x: x.status)
+def task_by_reviewer_id():
+    pass
+
+def task_by_post_id():
+    pass
+
+def sort_tasks():
+    pass
+
+def task_by_status(TASK_STATUS, tasks):
+    filtered_tasks = [task for task in tasks if task.TASK_STATUS == TASK_STATUS]
+    if filtered_tasks:
+        for task in filtered_tasks:
+            print(task)
+    else:
+        print(f'No tasks found with status: {TASK_STATUS}')
 
 def sort_task_by_date(tasks):
     return sorted(tasks, key=lambda x: x.created_at)
 
-def update_task_status(task_id, new_status):
+def update_task_status(new_status):
+    task_id = input("Please Enter a Task Id: ")
     task = Task.find_by_id(task_id)
     if task:
-        task.update_status(new_status)
-        print(f"Task {task_id} updated successfully.")
+        task.TASK_STATUS = new_status
+        try:
+            task.update()
+            print(f"Task {task_id} status updated to {new_status}.")
+        except Exception as e:
+            return e
     else:
         print(f"Task {task_id} not found.")
 
