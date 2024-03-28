@@ -9,7 +9,7 @@ TASK_STATUS = [
     'assigned',
     'in_progress',
     'closed',
-    'unassigned'
+    'unassigned0'
 ]
 
 class Task:
