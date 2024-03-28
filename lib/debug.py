@@ -65,5 +65,5 @@ def setup_db():
 
 if __name__ == '__main__':
     setup_db()
-    print('db seeded!')
-    import ipdb; ipdb.set_trace()
+    print('db seeda
+    

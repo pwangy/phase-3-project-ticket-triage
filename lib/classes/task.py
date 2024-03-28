@@ -2,14 +2,15 @@ from classes.__init__ import CURSOR, CONN
 from classes.post import Post
 from classes.status import Status
 from classes.reviewer import Reviewer
+from datetime import datetime
 
 class Task:
     all = {}
 
     def __init__(self, status, created_at, updated_at, post_id, reviewer_id, id=None):
         self.status = status
-        self.created_at = created_at 
-        self.updated_at = updated_at
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         self.post_id = post_id
         self.reviewer_id = reviewer_id
         self.id = id
@@ -60,9 +61,6 @@ class Task:
 
     @post_id.setter
     def post_id(self, post_id):
-        #if not isinstance(Post.find_by_id(post_id), Post):
-        #    raise ValueError("post_id is not found")
-        #else:
             self._post_id = post_id
 
     def post(self):
@@ -102,11 +100,12 @@ class Task:
     @classmethod
     def create(cls, status, created_at, updated_at, post_id, reviewer_id):
         try:
-            task = cls(status, created_at, updated_at, post_id, reviewer_id)
-            task.save()
+            with CONN:
+                task = cls(status, created_at, updated_at, post_id, reviewer_id)
+                task.save()
             return task
         except Exception as e:
-            return f"{e} Task was not created"
+            return e
 
     def update(self):
         try:
