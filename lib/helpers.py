@@ -21,15 +21,15 @@ def exit_program():
 def list_reviewers():
     reviewers = Reviewer.get_all()
     for reviewer in reviewers:
-        return reviewer
+        print(reviewer)
     
 def find_reviewer_by_id():
-    id_ = ("Enter the reviewer's id: ")
+    id_ = input("Enter the reviewer's id: ")
     reviewer = Reviewer.find_by_id(id_)
     print(reviewer) if reviewer else print(f'Reviewer {id_} not found')
 
 def find_reviewer_by_name():
-    name = ("Enter the reviewer's name: ")
+    name = input("Enter the reviewer's name: ")
     reviewer_by_name = [reviewer for reviewer in Reviewer.get_all() if reviewer.name is name]
     if reviewer_by_name:
         for reviewer in reviewer_by_name:

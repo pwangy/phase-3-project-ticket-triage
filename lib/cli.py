@@ -181,7 +181,6 @@ def task_mgmt_menu():
     print("7. Exit program")
     print("8. Help")
 
-
 def post_mgmt_menu():
     print("[bold cyan]Manage Posts[/bold cyan]")
     print("0. Find Post by Task Id")
