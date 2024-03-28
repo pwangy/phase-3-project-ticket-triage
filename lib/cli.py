@@ -13,8 +13,13 @@ from helpers import (
     delete_reviewer,
     list_posts,
     find_post_by_id,
-    list_tasks_by_user,
     list_tasks,
+    create_task,
+    update_task_reviewer,
+    task_by_reviewer_id,
+    task_by_post_id,
+    sort_tasks,
+    task_by_status,
     update_task_status
 )
 
@@ -25,18 +30,47 @@ def main():
         choice = input("> ")
         if choice == "0":
             my_tasks()
-        elif choice == "1":
-            manage_posts()
+        if choice == "1":
+            manage_tasks()
         elif choice == "2":
-            manage_reviewers()
+            manage_posts()
         elif choice == "3":
-            exit_program()
+            manage_reviewers()
         elif choice == "4":
+            exit_program()
+        elif choice == "5":
             help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
 #! Sub Menus
+
+def manage_tasks():
+    m = "manage tasks"
+    while m == "manage tasks":
+        task_mgmt_menu()
+        choice = input ("> ")
+        if choice == "0":
+            sort_tasks()
+        elif choice == "1":
+            task_by_reviewer_id()
+        elif choice == "2":
+            task_by_post_id()
+        elif choice == "3":
+            task_by_status()
+        elif choice == "4":
+            create_task()
+        elif choice == "5":
+            update_task_reviewer()
+        elif choice == "6":
+            break
+        elif choice == "7":
+            exit_program()
+        elif choice == "8":
+            help()
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
+
 def my_tasks():
     m = "tasks"
     while m == "tasks":
@@ -55,32 +89,6 @@ def my_tasks():
         elif choice == "5":
             exit_program()
         elif choice == "6":
-            help()
-        else:
-            print("That option doesn't exist, please choose an option from the menu.")
-
-def manage_tasks(my_tasks):
-    m = "manage tasks"
-    while m == "manage tasks":
-        task_mgmt_menu(my_tasks)
-        choice = input ("> ")
-        if choice == "0":
-            sort_tasks()
-        elif choice == "1":
-            find_task_by_reviewer_id()
-        elif choice == "2":
-            find_task_by_post_id()
-        elif choice == "3":
-            find_task_by_status()
-        elif choice == "4":
-            create_task()
-        elif choice == "5":
-            update_task_reviewer()
-        elif choice == "6":
-            main()
-        elif choice == "7":
-            exit_program()
-        elif choice == "8":
             help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
@@ -155,11 +163,12 @@ def help():
 def menu():
     print("[bold magenta]WELCOME REVIEWER:rainbow:[/bold magenta]")
     print("[bold cyan]Main Menu[/bold cyan]")
-    print("[bold green]0[/bold green]: Manage Tasks")
-    print("[bold green]1[/bold green]: Manage Posts")
-    print("[bold green]2[/bold green]: Manage Reviewers")
-    print("[bold green]3[/bold green]: Exit")
-    print("[bold green]4[/bold green]: Help")
+    print("[bold green]0[/bold green]: My Tasks")
+    print("[bold green]1[/bold green]: Manage All Tasks")
+    print("[bold green]2[/bold green]: Manage Posts")
+    print("[bold green]3[/bold green]: Manage Reviewers")
+    print("[bold green]4[/bold green]: Exit")
+    print("[bold green]5[/bold green]: Help")
 
 def my_task_menu():
     print("[bold cyan]My Tasks[/bold cyan]")
