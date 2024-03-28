@@ -24,6 +24,7 @@ class Task:
             + f"Assigned Reviewer: {self.reviewer_id}>"
         )
 
+    #! Attributes and Props
     @property
     def status(self):
         return self._status
@@ -79,6 +80,91 @@ class Task:
         else:
             self._reviewer_id = reviewer_id
 
+    #! ORM Class Methods
+    @classmethod
+    def create_table(cls):
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS tasks (
+                        id INTEGER PRIMARY KEY,
+                        status INTEGER,
+                        created_at TEXT,
+                        updated_at TEXT,
+                        post_id INTEGER,
+                        reviewer_id INTEGER,
+                        FOREIGN KEY (post_id) REFERENCES posts(id),
+                        FOREIGN KEY (reviewer_id) REFERENCES reviewers(id)
+                    )
+                    """
+                )
+        except Exception as e:
+            return e
+
+    @classmethod
+    def drop_table(cls):
+        try:
+            with CONN:
+                CURSOR.execute("DROP TABLE IF EXISTS tasks")
+        except Exception as e:
+            return e
+
+    @classmethod
+    def create(cls, status, created_at, updated_at, post_id, reviewer_id):
+        try:
+            task = cls(status, created_at, updated_at, post_id, reviewer_id)
+            task.save()
+            return task
+        except Exception as e:
+            return f"{e} Task was not created"
+
+    @classmethod
+    def get_all(cls):
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                    SELECT * from tasks;
+                    """
+                )
+                rows = CURSOR.fetchall()
+                return [cls(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows]
+        except Exception as e:
+            return e
+
+    @classmethod
+    def find_by_id(cls, id):
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                    SELECT * FROM tasks
+                    WHERE id = ?;
+                    """,
+                    (id,)
+                )
+                row = CURSOR.fetchone()
+            return cls(row[1], row[2], row[3], row[4], row[5], row[0]) if row else None
+        except Exception as e:
+            return e
+
+    @classmethod
+    def find_by(cls, attr, val):
+        try:
+            CURSOR.execute(
+                f"""
+                SELECT * FROM tasks
+                WHERE {attr} = ?;
+                """,
+                (val,)
+            )
+            row = CURSOR.fetchone()
+            return cls(row[1], row[2], row[3], row[4], row[5], row[0]) if row else None
+        except Exception as e:
+            return e
+
+    #! ORM Instance Methods
     def save(self):
         try:
             with CONN:
@@ -98,15 +184,6 @@ class Task:
                 type(self).all[self.id] = self
         except Exception as e:
             return e
-
-    @classmethod
-    def create(cls, status, created_at, updated_at, post_id, reviewer_id):
-        try:
-            task = cls(status, created_at, updated_at, post_id, reviewer_id)
-            task.save()
-            return task
-        except Exception as e:
-            return f"{e} Task was not created"
 
     def update(self):
         try:
@@ -146,44 +223,15 @@ class Task:
         except Exception as e:
             return e
 
-    @classmethod
-    def create_table(cls):
-        try:
-            with CONN:
-                CURSOR.execute(
-                    """
-                    CREATE TABLE IF NOT EXISTS tasks (
-                        id INTEGER PRIMARY KEY,
-                        status INTEGER,
-                        created_at TEXT,
-                        updated_at TEXT,
-                        post_id INTEGER,
-                        reviewer_id INTEGER,
-                        FOREIGN KEY (post_id) REFERENCES posts(id),
-                        FOREIGN KEY (reviewer_id) REFERENCES reviewers(id)
-                    )
-                    """
-                )
-        except Exception as e:
-            return e
-
-    @classmethod
-    def drop_table(cls):
-        try:
-            with CONN:
-                CURSOR.execute("DROP TABLE IF EXISTS tasks")
-        except Exception as e:
-            return e
-
-#CLI and Association Methods
-def update_task_status():
-    id_ = input("Enter the Task Id Number: ")
-    if task := Task.find_by_id(id_):
-        try:         
-            status = input("Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified")
-            task.status = status
-            print(f'Status Changed to: {status}')
-        except Exception as e:
-            print("Error updating statu: ",e)
-    else:
-        print(f'Task{id_} not found')
+    #! CLI and Association Methods
+    def update_task_status():
+        id_ = input("Enter the Task Id Number: ")
+        if task := Task.find_by_id(id_):
+            try:         
+                status = input("Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified")
+                task.status = status
+                print(f'Status Changed to: {status}')
+            except Exception as e:
+                print("Error updating statu: ",e)
+        else:
+            print(f'Task{id_} not found')
