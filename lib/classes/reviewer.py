@@ -24,6 +24,8 @@ class Reviewer:
             raise TypeError("Name must be a string.")
         else:
             self._name = name
+#! add length name validation, "check" name within db
+
 
     @classmethod
     def create_table(cls):
@@ -33,7 +35,7 @@ class Reviewer:
                     """
                     CREATE TABLE IF NOT EXISTS reviewers (
                         id INTEGER PRIMARY KEY,
-                        name TEXT
+                        name TEXT NOT NULL
                     );
                     """
                 )
@@ -57,7 +59,7 @@ class Reviewer:
         try:
             with CONN:
                 reviewer = cls(name)
-            return reviewer.save()
+                return reviewer.save()
         except Exception as e:
             return e
 

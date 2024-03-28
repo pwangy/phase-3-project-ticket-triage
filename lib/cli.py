@@ -100,7 +100,7 @@ def manage_posts():
         elif choice == "4":
             find_post_by_reviewer()
         elif choice == "5":
-            main()
+            break
         elif choice == "6":
             exit_program()
         elif choice == "7":
@@ -125,7 +125,7 @@ def manage_reviewers():
         elif choice == "5":
             delete_reviewer()
         elif choice == "6":
-            main()
+            break
         elif choice == "7":
             exit_program()
         elif choice == "8":
@@ -145,7 +145,9 @@ def help():
         if choice == "2":
             manage_reviewers()
         if choice == "3":
-            exit_program
+            main()
+        if choice == "4":
+            exit_program()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
@@ -194,15 +196,15 @@ def post_mgmt_menu():
 
 def reviewer_mgmt_menu():
     print("[bold cyan]Manage Reviewers[/bold cyan]")
-    print("0. List Reviewers")
-    print("1. Find Reviewer by Id")
-    print("2. Find Reviewer by Name")
-    print("3. Update Reviewer")
-    print("4. Add Reviewer")
-    print("5. Delete Reviewer")
-    print("6. Back to Main Menu")
-    print("7. Exit Program")
-    print("8. Help")
+    print("[bold green]0[/bold green]: List Reviewers")
+    print("[bold green]1[/bold green]: Find Reviewer by Id")
+    print("[bold green]2[/bold green]: Find Reviewer by Name")
+    print("[bold green]3[/bold green]: Update Reviewer")
+    print("[bold green]4[/bold green]: Add Reviewer")
+    print("[bold green]5[/bold green]: Delete Reviewer")
+    print("[bold green]6[/bold green]: Back to Main Menu")
+    print("[bold green]7[/bold green]: Exit Program")
+    print("[bold green]8[/bold green]: Help")
     
 def help_menu():
     print("[bold cyan]Welcome to the Help section![/bold cyan]")
@@ -211,7 +213,7 @@ def help_menu():
     print("[bold green]1[/bold green]: Manage posts")
     print("[bold green]2[/bold green]: Manage reviewers")
     print("[bold green]3[/bold green]: Back to Main Menu")
-    print("[bold green]4[/bold green]: Exit the program")
+    print("[bold green]4[/bold green]: Exit program")
 
 if __name__ == "__main__":
     random.seed(0)

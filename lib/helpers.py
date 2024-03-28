@@ -30,7 +30,8 @@ def find_reviewer_by_id():
 
 def find_reviewer_by_name():
     name = input("Enter the reviewer's name: ")
-    reviewer_by_name = [reviewer for reviewer in Reviewer.get_all() if reviewer.name is name]
+    reviewer_by_name = [reviewer for reviewer in Reviewer.get_all() if reviewer.name.lower() == name.lower()]
+    import ipdb; ipdb.set_trace()
     if reviewer_by_name:
         for reviewer in reviewer_by_name:
             print(reviewer)
@@ -38,11 +39,10 @@ def find_reviewer_by_name():
         print(f'Reviewer {name} not found')
 
 def create_reviewer():
-    id = input("Enter the reviewer's id: ")
-    name = input("Enter the reviewer's name: ")
+    name = input("Enter the new reviewer's name: ")
     try:
-        reviewer = Reviewer.create(id, name)
-        print(f'Success: {reviewer}')
+        reviewer = Reviewer.create(name)
+        print(f'Successfully Added: {reviewer}')
     except Exception as e:
         return e
 
@@ -98,9 +98,6 @@ def list_tasks():
 def list_tasks_by_user():
     pass
 
-#by date (oldest to newest) ((sort))
-#something that updates the task [1] assigned, [2] in progress, [3] closed, [4] unassigned
-#sort by status, sort by date, create task, update task
 
 def update_task():
     pass
