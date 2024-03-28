@@ -5,15 +5,21 @@ from classes.task import Task
 
 def welcome():
     print("Welcome Reviewer!")
-    exit()
+
 
 def exit_program():
     print("Goodbye!")
     exit()
 
 def help():
-    print("Help")
-
+    print("Welcome to the Help section!")
+    print("Here are the available options:")
+    print("0: View your tasks")
+    print("1: Manage posts")
+    print("2: Manage reviewers")
+    print("3: Exit the program")
+    print("4: Display this help message")
+    
 #Reviewer
 def list_reviewers():
     reviewers = Reviewer.get_all()
@@ -24,6 +30,15 @@ def find_reviewer_by_id():
     id_ = ("Enter the reviewer's id: ")
     reviewer = Reviewer.find_by_id(id_)
     print(reviewer) if reviewer else print(f'Reviewer {id_} not found')
+
+def find_reviewer_by_name():
+    name = ("Enter the reviewer's name: ")
+    reviewer_by_name = [reviewer for reviewer in Reviewer.get_all() if reviewer.name is name]
+    if reviewer_by_name:
+        for reviewer in reviewer_by_name:
+            print(reviewer)
+    else:
+        print(f'Reviewer {name} not found')
 
 def create_reviewer():
     id = input("Enter the reviewer's id: ")

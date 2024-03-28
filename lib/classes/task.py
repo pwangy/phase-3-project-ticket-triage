@@ -4,6 +4,14 @@ from classes.status import Status
 from classes.reviewer import Reviewer
 from datetime import datetime
 
+
+TASK_STATUS = [
+    'assigned',
+    'in_progress',
+    'closed',
+    'unassigned'
+]
+
 class Task:
     all = {}
 
