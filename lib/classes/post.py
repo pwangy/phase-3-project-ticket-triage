@@ -231,7 +231,6 @@ class Post:
                     """,
                     (self.total_interactions, self.content_type, self.review_badge, self.is_viral, self.id)
                 )
-                CONN.commit()
                 type(self).all[self.id] = self
                 return self
         except Exception as e:

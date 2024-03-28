@@ -1,16 +1,25 @@
 from classes.__init__ import CURSOR, CONN
 from classes.post import Post
-from classes.status import Status
+#from classes.status import Status
 from classes.reviewer import Reviewer
 from datetime import datetime
+
+
+STATUS_TYPES = {
+    1 : 'In Process',
+    2 : 'Failed Verification',
+    3 : 'Verfied'}
+
+now = datetime.now()
+date = now.strftime("%m/%d/%Y")
 
 class Task:
     all = {}
 
     def __init__(self, status, created_at, updated_at, post_id, reviewer_id, id=None):
         self.status = status
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        self.created_at = date
+        self.updated_at = date
         self.post_id = post_id
         self.reviewer_id = reviewer_id
         self.id = id
@@ -31,10 +40,10 @@ class Task:
 
     @status.setter
     def status(self, status):
-        if status in range(1, 4):
-            self._status = Status
+        if not isinstance(status, str):
+            raise ValueError("Invalid status.")
         else:
-            raise ValueError("Status must be 1, 2, or 3")
+            self._status = status
 
     @property
     def created_at(self):
@@ -42,7 +51,9 @@ class Task:
 
     @created_at.setter
     def created_at(self, created_at):
-        self._created_at = created_at
+        if not isinstance(created_at, str):
+            raise ValueError("updated_at must be a DateTime string")
+        else: self._created_at = created_at
 
     @property
     def updated_at(self):
@@ -64,7 +75,10 @@ class Task:
             self._post_id = post_id
 
     def post(self):
-        return Post.find_by_id(self.post_id)
+        if not isinstance((Post.find_by_id(post_id)), Post):
+            raise ValueError("post_id not found")
+        else:
+            self._post_id = post_id
 
     @property
     def reviewer_id(self):
@@ -92,8 +106,10 @@ class Task:
                         self.reviewer_id,
                     )
                 )
+                CONN.commit()
                 self.id = CURSOR.lastrowid
                 type(self).all[self.id] = self
+            return self
         except Exception as e:
             return e
 
@@ -101,9 +117,9 @@ class Task:
     def create(cls, status, created_at, updated_at, post_id, reviewer_id):
         try:
             with CONN:
-                task = cls(status, created_at, updated_at, post_id, reviewer_id)
-                task.save()
-            return task
+                new_task = cls(status, created_at, updated_at, post_id, reviewer_id)
+                new_task.save()
+            return new_task
         except Exception as e:
             return e
 
@@ -153,14 +169,14 @@ class Task:
                     """
                     CREATE TABLE IF NOT EXISTS tasks (
                         id INTEGER PRIMARY KEY,
-                        status INTEGER,
+                        status TEXT,
                         created_at TEXT,
                         updated_at TEXT,
                         post_id INTEGER,
                         reviewer_id INTEGER,
                         FOREIGN KEY (post_id) REFERENCES posts(id),
                         FOREIGN KEY (reviewer_id) REFERENCES reviewers(id)
-                    )
+                    );
                     """
                 )
         except Exception as e:
@@ -185,4 +201,13 @@ def update_task_status():
         except Exception as e:
             print("Error updating statu: ",e)
     else:
-        print(f'Task{id_} not found')
+        print(f'Task{id} not found')
+
+    @classmethod #create new instantance of Post based on info in db
+    def new_from_db(cls, row):
+        try:
+            post = cls(row[1], row[2], row[3], row[4], row[5], row[0])
+            cls.all[task.id] = task
+            return task
+        except Exception as e:
+            return e

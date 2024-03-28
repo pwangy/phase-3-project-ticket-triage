@@ -13,6 +13,8 @@ CONTENT_TYPES = [
     'Text'
 ]
 
+STATUS_TYPES = ["1", "2", "3", "4"]
+
 def drop_tables():
     Task.drop_table()
     Reviewer.drop_table()
@@ -43,16 +45,17 @@ def seed_tables():
         try:
             number = fake.random_int(min=3500000, max=200000000)
             Post.create(number, fake.random_element(elements=CONTENT_TYPES), review_badge=None)
-            print('Created task')
+            print('Created post')
         except Exception as e:
             print("Failed to create Post: ", e)
 
     for _ in range(50):
         try:
-            #reviewers = Reviewer.get_all()
-            #posts = Post.get_all()
-            Task.create(random.number(1,4), random.number(1,250), random.number(1,11)) 
+    #        #reviewers = Reviewer.get_all()
+    #        #posts = Post.get_all()
+            Task.create(fake.random_element(elements=STATUS_TYPES), "text", "text", fake.random_int(min=1, max=250), fake.random_int(min=1, max=10))
             print('Created task')
+            #ipdb.set_trace()
         except Exception as e:
             return e
 

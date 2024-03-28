@@ -65,5 +65,5 @@ def setup_db():
 
 if __name__ == '__main__':
     setup_db()
-    print('db seeda
+    print('db seeded')
     
