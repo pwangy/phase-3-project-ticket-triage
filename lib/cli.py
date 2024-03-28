@@ -18,6 +18,7 @@ from helpers import (
     update_task_status
 )
 
+#! Main Menu
 def main():
     while True:
         menu()
@@ -35,6 +36,7 @@ def main():
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
+#! Sub Menus
 def my_tasks():
     m = "tasks"
     while m == "tasks":
@@ -56,7 +58,6 @@ def my_tasks():
             help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
-
 
 def manage_tasks(my_tasks):
     m = "manage tasks"
@@ -126,6 +127,7 @@ def manage_reviewers():
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
+#! Help Menu
 def help():
     while True:
         help_menu()
@@ -141,6 +143,7 @@ def help():
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
+#! Print Menu Options
 def menu():
     print("[bold cyan]WELCOME REVIEWER:rainbow:[/bold cyan]")
     print("[bold cyan]Main Menu[/bold cyan]")
