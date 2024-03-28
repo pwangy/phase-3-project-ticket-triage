@@ -63,7 +63,15 @@ def manage_tasks(my_tasks):
         elif choice == "2":
             find_task_by_post_id()
         elif choice == "3":
-            pass
+            find_task_by_status()
+        elif choice == "4":
+            create_task()
+        elif choice == "5":
+            update_task_reviewer()
+        elif choice == "6":
+            exit_program()
+        elif choice == "7":
+            help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
@@ -72,6 +80,18 @@ def manage_posts():
         sub_menu3()
         if choice == "0":
             sort_by_task_id()
+        elif choice == "1":
+            sort_post_by_interactions()
+        elif choice == "2":
+            sort_post_by_oldest()
+        elif choice == "3":
+            find_post_by_id()
+        elif choice == "4":
+            find_post_by_reviewer()
+        elif choice == "5":
+            exit_program()
+        elif choice == "6":
+            help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
@@ -79,7 +99,21 @@ def manage_reviewers():
     while True:
         sub_menu4()
         if choice == "0":
-            pass
+            list_reviewers()
+        elif choice == "1":
+            find_reviewer_by_id()
+        elif choice == "2":
+            find_reviewer_by_name()
+        elif choice == "3":
+            update_reviewers()
+        elif choice == "4":
+            create_reviewer()
+        elif choice == "5":
+            delete_reviewer()
+        elif choice == "6":
+            exit_program()
+        elif choice == "7":
+            help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
@@ -132,8 +166,15 @@ def sub_menu3():
 
 def sub_menu4():
     print("Please select an option:")
-    print("0. Exit program")
-    pass
+    print("0. List Reviewers")
+    print("1. Find Reviewer by Id")
+    print("2. Find Reviewer by Name")
+    print("3. Update Reviewer")
+    print("4. Add Reviewer")
+    print("5. Delete Reviewer")
+    print("6. Exit Program")
+    print("7. Help")
+    
 
 
 if __name__ == "__main__":
