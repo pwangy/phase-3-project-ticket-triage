@@ -5,10 +5,14 @@ from classes.task import Task
 
 def welcome():
     print("Welcome Reviewer!")
+    exit()
 
 def exit_program():
     print("Goodbye!")
     exit()
+
+def help():
+    print("Help")
 
 #Reviewer
 def list_reviewers():
@@ -79,7 +83,7 @@ def list_tasks():
         print("I am sorry, it looks like we have no tasks in our system")
 
 def list_tasks_by_user():
-   pass
+    pass
 
 #by date (oldest to newest) ((sort))
 #something that updates the task [1] assigned, [2] in progress, [3] closed, [4] unassigned
