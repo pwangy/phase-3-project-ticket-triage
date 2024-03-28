@@ -1,172 +1,94 @@
-# Phase 3 CLI+ORM Project Template
+# Ticket Triage
+Ever wondered just *how difficult it actually is* for social media platforms to trigger a fact checking task once a post become viral? We did! 
 
-## Learning Goals
+And then we decided to build an app about it. 
 
-- Discuss the basic directory structure of a CLI.
-- Outline the first steps in building a CLI.
+Imagined as an internal tool, this program works by creating a task once user-created content reaches viral status. 
 
+What defines virality? There's no single answer, so we chose 3.5 million interactions as our virality threshold.
+
+If a post has 3.5m or more interactions, a task is created and our end-user (a Reviewer) can work on that task. Once reviewed, a Post will then receive a publically visable badge displaying that the Post's content has been "Verified", "Debunked", or (if factfullness couldn't be conclusively decided) a warning to "Proceed With Caution".
+
+This is not an end-to-end program, but rather it is a proof of concept. 
+
+It assumes a database of user created content (Posts) which also includes a total count of interactions and that once a truthfullness badge has been assigned that another program detect the upate and display the corresponding graphical badge to the public.
+
+
+
+### TL;DR
 ---
-
-## Introduction
-
-You now have a basic idea of what constitutes a CLI. Fork and clone this lesson
-for a project template for your CLI.
-
-Take a look at the directory structure:
-
-```console
-.
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-└── lib
-    ├── models
-    │   ├── __init__.py
-    │   └── model_1.py
-    ├── cli.py
-    ├── debug.py
-    └── helpers.py
-```
-
-Note: The directory also includes two files named `CONTRIBUTING.md` and
-`LICENSE.md` that are specific to Flatiron's curriculum. You can disregard or
-delete the files if you want.
-
----
-
-## Generating Your Environment
-
-You might have noticed in the file structure- there's already a Pipfile!
-
-Install any additional dependencies you know you'll need for your project by
-adding them to the `Pipfile`. Then run the commands:
-
-```console
-pipenv install
-pipenv shell
-```
-
----
-
-## Generating Your CLI
-
-A CLI is, simply put, an interactive script and prompts the user and performs
-operations based on user input.
-
-The project template has a sample CLI in `lib/cli.py` that looks like this:
-
-```py
-# lib/cli.py
-
-from helpers import (
-    exit_program,
-    helper_1
-)
+Ticket Triage is a fact checking queue, triggered by a post becoming viral. An internal tool for platform owners to mitigate disinformation.
 
 
-def main():
-    while True:
-        menu()
-        choice = input("> ")
-        if choice == "0":
-            exit_program()
-        elif choice == "1":
-            helper_1()
-        else:
-            print("Invalid choice")
+
+## Getting Up and Running
+Fork and clone this repo, then run ```pipenv install``` and ```pipenv shell``` in your terminal.
+
+other steps...
 
 
-def menu():
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
+
+## MVP &nbsp;|&nbsp; Deliverables
+### ORM Requirements
+- [x] The application must include a database created and modified with Python ORM methods that you write.
+- [x] at least 2 tables with a one-to-many relationship (I would love to see a many-to-many though 🤓) manual ORM to implement: create, delete, get all, and find by id at minimum
+- [x] The data model must include at least 2 model classes.
+- [x] The data model must include at least 1 one-to-many relationship.
+- [x] For EACH class in the data model, the CLI must include options: to create an object, delete an object, display all objects, view related objects, and find an object by attribute.
+- [ ] well-organized code (separate classes for separate responsibilities) respect OO principles (SST, SOC, SOLID)
+- [x] Pipfile contains all needed dependencies and no unneeded dependencies.
+- [x] Imports are used in files only where necessary.
+- [x] Project folders, files, and modules should be organized and follow appropriate naming conventions.
+- [ ] The project should include a README.md that describes the application.
+
+### CLI Requirements
+- [x] The CLI must display menus with which a user may interact.
+- [ ] The CLI should use loops as needed to keep the user in the application until they choose to exit.
+- [ ] The CLI should validate user input and object creations/deletions, providing informative errors to the user.
+- [x] Make sure your CLI has the option to quit/exit the program at any point and it doesn’t break on its own otherwise
+
+### Classes/ Modules
+- [x] Posts - can have a Task
+- [x] Tasks - each task will have a Post and a Reviewer
+- [ ] Reviewer - will have a list of Tasks (which points to the Post)
+
+### ORM Association Methods
+- [x] Once a post reaches viral status, a Task is created and has an associated Reviewer
+
+### CLI: User(Reviewer) can:
+- [ ] create an object
+- [ ] delete an object 
+- [ ] display all objects 
+- [ ] view related objects 
+- [ ] find an object by attribute
+- [ ] Ticket status -fact needs to be checked, in progress, or has been checked
+- [ ] Badge = attribute which lives in the post, but updated through the Task
+- [ ] reviewer should be able to log in and check their list of tasks
+- [ ] view post by id, find 1
+- [ ] update task 
+- [ ] update post
+- [ ] manage reviewers as a sub menu
+- [ ] identifiy who user is
+- [ ] see all posts
+- [ ] see all tasks
+- [ ] by date
+
+### Stretch / Roadmap
+- [ ] After the post is reviewed and is found to be false, then figure out what action should be taken
+- [ ] Possible warning to the account who posted
+- [ ] Each reviewer can assign priority to tasks on their task list 
+- [ ] Priority levels: low, medium, high, blocker (all hands on deck)
 
 
-if __name__ == "__main__":
-    main()
-```
 
-The helper functions are located in `lib/helpers.py`:
-
-```py
-# lib/helpers.py
-
-def helper_1():
-    print("Performing useful function#1.")
+## Authors
 
 
-def exit_program():
-    print("Goodbye!")
-    exit()
-```
 
-You can run the template CLI with `python lib/cli.py`, or include the shebang
-and make it executable with `chmod +x`. The template CLI will ask for input, do
-some work, and accomplish some sort of task.
-
-Past that, CLIs can be whatever you'd like, as long as you follow the project
-requirements.
-
-Of course, you will update `lib/cli.py` with prompts that are appropriate for
-your application, and you will update `lib/helpers.py` to replace `helper_1()`
-with a useful function based on the specific problem domain you decide to
-implement, along with adding other helper functions to the module.
-
-In the `lib/models` folder, you should rename `model_1.py` with the name of a
-data model class from your specific problem domain, and add other classes to the
-folder as needed. The file `lib/models/__init__.py` has been initialized to
-create the necessary database constants. You need to add import statements to
-the various data model classes in order to use the database constants.
-
-You are also welcome to implement a different module and directory structure.
-However, your project should be well organized, modular, and follow the design
-principal of separation of concerns, which means you should separate code
-related to:
-
-- User interface
-- Data persistence
-- Problem domain rules and logic
-
----
-
-## Updating README.md
-
-`README.md` is a Markdown file that should describe your project. You will
-replace the contents of this `README.md` file with a description of **your**
-actual project.
-
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this assignments's resources for a basic guide to Markdown.
-
-### What Goes into a README?
-
-This README serves as a template. Replace the contents of this file to describe
-the important files in your project and describe what they do. Each Python file
-that you edit should get at least a paragraph, and each function should be
-described with a sentence or two.
-
-Describe your actual CLI script first, and with a good level of detail. The rest
-should be ordered by importance to the user. (Probably functions next, then
-models.)
-
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
-
----
-
-## Conclusion
-
-A lot of work goes into a good CLI, but it all relies on concepts that you've
-practiced quite a bit by now. Hopefully this template and guide will get you off
-to a good start with your Phase 3 Project.
-
-Happy coding!
-
----
-
-## Resources
-
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+## Tech
+Ticket Triage is a Python CLI Application
+- Python
+- SQL
+- CLI
+- Rich
+- Faker
