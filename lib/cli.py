@@ -136,12 +136,13 @@ def manage_reviewers():
 
 
 def menu():
+    print("Welcome Reviewer!")
     print("Please select an option:")
-    print("0. Exit program")
-    print("1. My Tasks")
-    print("2. Manage All Tasks")
-    print("3. Manage All Posts")
-    print("4. Manage Reviewers")
+    print("0. My Tasks")
+    print("1. Manage All Tasks")
+    print("2. Manage All Posts")
+    print("3. Manage Reviewers")
+    print("4. Exit program")
     print("5. Help")
 
 
