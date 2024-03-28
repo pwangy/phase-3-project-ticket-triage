@@ -4,9 +4,7 @@ import random
 from rich import print
 
 from helpers import (
-    welcome,
     exit_program,
-    help,
     list_reviewers,
     find_reviewer_by_id,
     find_reviewer_by_name,
@@ -51,8 +49,10 @@ def my_tasks():
         elif choice == "3":
             list_tasks()
         elif choice == "4":
-            exit_program()
+            main()
         elif choice == "5":
+            exit_program()
+        elif choice == "6":
             help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
@@ -66,7 +66,7 @@ def manage_tasks(my_tasks):
         if choice == "0":
             sort_tasks()
         elif choice == "1":
-            find_task_by_reviewer()
+            find_task_by_reviewer_id()
         elif choice == "2":
             find_task_by_post_id()
         elif choice == "3":
@@ -85,6 +85,7 @@ def manage_tasks(my_tasks):
 def manage_posts():
     while True:
         post_mgmt_menu()
+        choice = input ("> ")
         if choice == "0":
             sort_by_task_id()
         elif choice == "1":
@@ -105,6 +106,7 @@ def manage_posts():
 def manage_reviewers():
     while True:
         reviewer_mgmt_menu()
+        choice = input ("> ")
         if choice == "0":
             list_reviewers()
         elif choice == "1":
@@ -124,6 +126,20 @@ def manage_reviewers():
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
+def help():
+    while True:
+        help_menu()
+        choice = input ("> ")
+        if choice == "0":
+            my_tasks()
+        if choice == "1":
+            manage_posts()
+        if choice == "2":
+            manage_reviewers()
+        if choice == "3":
+            exit_program
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
 
 def menu():
     print("[bold cyan]WELCOME REVIEWER:rainbow:[/bold cyan]")
@@ -140,13 +156,14 @@ def my_task_menu():
     print("1. Update Post Badge")
     print("2. Complete Task")
     print("3. Manage Reviewers")
-    print("4. Exit program")
-    print("5. Help")
+    print("4. Back to Main Menu")
+    print("5. Exit program")
+    print("6. Help")
 
 def task_mgmt_menu():
     print("Please select an option:")
     print("0. Sort Tasks")
-    print("1. Find Task by Reviewer")
+    print("1. Find Task by Reviewer Id")
     print("2. Find Task by Post Id")
     print("3. Find Task by Status")
     print("4. Create Task")
@@ -176,8 +193,8 @@ def reviewer_mgmt_menu():
     print("6. Exit Program")
     print("7. Help")
     
-def help():
-    print("Welcome to the Help section!")
+def help_menu():
+    print("[bold cyan]Welcome to the Help section![/bold cyan]")
     print("Here are the available options:")
     print("0: View your tasks")
     print("1: Manage posts")

@@ -3,23 +3,20 @@ from classes.reviewer import Reviewer
 from classes.post import Post
 from classes.task import Task
 
-def welcome():
-    print("Welcome Reviewer!")
-
 
 def exit_program():
-    print("Goodbye!")
+    print("Thanks for reviewing!")
     exit()
 
-def help():
-    print("Welcome to the Help section!")
-    print("Here are the available options:")
-    print("0: View your tasks")
-    print("1: Manage posts")
-    print("2: Manage reviewers")
-    print("3: Exit the program")
-    print("4: Display this help message")
-    
+# def help():
+#     print("Welcome to the Help section!")
+#     print("Here are the available options:")
+#     print("0: View your tasks")
+#     print("1: Manage posts")
+#     print("2: Manage reviewers")
+#     print("3: Exit the program")
+#     print("4: Display this help message")
+
 #Reviewer
 def list_reviewers():
     reviewers = Reviewer.get_all()
