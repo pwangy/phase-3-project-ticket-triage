@@ -18,29 +18,28 @@ from helpers import (
     update_task_status
 )
 
-
-
 def main():
     while True:
         menu()
         choice = input("> ")
         if choice == "0":
-            exit_program()
-        elif choice == "1":
             list_tasks_by_user()
-        elif choice == "2":
+        elif choice == "1":
             list_tasks()
-        elif choice == "3":
+        elif choice == "2":
             list_posts()
-        elif choice == "4":
+        elif choice == "3":
             list_reviewers()
+        elif choice == "4":
+            exit_program()
         elif choice == "5":
             help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
 def my_tasks():
-    while True:
+    m = "tasks"
+    while m == "tasks":
         sub_menu1()
         choice = input("> ")
         if choice == "0":
@@ -49,21 +48,40 @@ def my_tasks():
             update_task_status()
         elif choice == "2":
             pass
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
 
-def manage_tasks():
-    while True:
-        sub_menu2()
-        pass
+def manage_tasks(my_tasks):
+    m = "manage tasks"
+    while m == "manage tasks":
+        sub_menu2(my_tasks)
+        choice = input ("> ")
+        if choice == "0":
+            sort_tasks()
+        elif choice == "1":
+            find_task_by_reviewer()
+        elif choice == "2":
+            find_task_by_post_id()
+        elif choice == "3":
+            pass
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
 
 def manage_posts():
     while True:
         sub_menu3()
-        pass
+        if choice == "0":
+            sort_by_task_id()
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
 
 def manage_reviewers():
     while True:
         sub_menu4()
-        pass
+        if choice == "0":
+            pass
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
 
 # def mainmenu ():
 #     d = ''
@@ -95,11 +113,11 @@ def menu():
 
 def sub_menu1():
     print("Please select an option:")
-    print("0. Exit program")
-    print("1. Update Task Status")
-    print("2. Manage All Tasks")
-    print("3. Manage All Posts")
-    print("4. Manage Reviewers")
+    print("0. Update Task Status")
+    print("1. Manage All Tasks")
+    print("2. Manage All Posts")
+    print("3. Manage Reviewers")
+    print("4. Exit program")
     print("5. Help")
 
 def sub_menu2():
