@@ -35,10 +35,10 @@ other steps...
 - [x] The data model must include at least 2 model classes.
 - [x] The data model must include at least 1 one-to-many relationship.
 - [x] For EACH class in the data model, the CLI must include options: to create an object, delete an object, display all objects, view related objects, and find an object by attribute.
-- [ ] well-organized code (separate classes for separate responsibilities) respect OO principles (SST, SOC, SOLID)
 - [x] Pipfile contains all needed dependencies and no unneeded dependencies.
 - [x] Imports are used in files only where necessary.
 - [x] Project folders, files, and modules should be organized and follow appropriate naming conventions.
+- [ ] well-organized code (separate classes for separate responsibilities) respect OO principles (SST, SOC, SOLID)
 - [ ] The project should include a README.md that describes the application.
 
 ### CLI Requirements
@@ -50,7 +50,7 @@ other steps...
 ### Classes/ Modules
 - [x] Posts - can have a Task
 - [x] Tasks - each task will have a Post and a Reviewer
-- [ ] Reviewer - will have a list of Tasks (which points to the Post)
+- [x] Reviewer - will have a list of Tasks (which points to the Post)
 
 ### ORM Association Methods
 - [x] Once a post reaches viral status, a Task is created and has an associated Reviewer
@@ -61,17 +61,12 @@ other steps...
 - [ ] display all objects 
 - [ ] view related objects 
 - [ ] find an object by attribute
-- [ ] Ticket status -fact needs to be checked, in progress, or has been checked
-- [ ] Badge = attribute which lives in the post, but updated through the Task
 - [ ] reviewer should be able to log in and check their list of tasks
-- [ ] view post by id, find 1
-- [ ] update task 
-- [ ] update post
-- [ ] manage reviewers as a sub menu
-- [ ] identifiy who user is
+- [ ] update task status
+- [ ] update review_badge in Post
+- [ ] manage reviewers
 - [ ] see all posts
 - [ ] see all tasks
-- [ ] by date
 
 ### Stretch / Roadmap
 - [ ] After the post is reviewed and is found to be false, then figure out what action should be taken
@@ -82,7 +77,9 @@ other steps...
 
 
 ## Authors
-
+- [Gabriella Richmond](https://github.com/gabriellarichmo)
+- [Peggy Wang](https://github.com/pwangy)
+- [Chris Kjolhede](https://github.com/CKjolhede)
 
 
 ## Tech
