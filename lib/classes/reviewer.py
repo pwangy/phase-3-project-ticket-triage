@@ -22,10 +22,10 @@ class Reviewer:
     def name(self, name):
         if not isinstance(name, str):
             raise TypeError("Name must be a string.")
+        elif len(name) <= 2:
+            raise ValueError("Name must be at least 2 characters.")
         else:
             self._name = name
-#! add length name validation, "check" name within db
-
 
     @classmethod
     def create_table(cls):

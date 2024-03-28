@@ -38,13 +38,20 @@ def find_reviewer_by_name():
     else:
         print(f'Reviewer {name} not found')
 
-def create_reviewer():
-    name = input("Enter the new reviewer's name: ")
-    try:
-        reviewer = Reviewer.create(name)
-        print(f'Successfully Added: {reviewer}')
-    except Exception as e:
-        return e
+def create_reviewer():    
+    user_is_not_created = True
+    while(user_is_not_created):
+        name = input("Enter the new reviewer's name: ")
+        if len(name) < 2:
+            print("Name must be at least 2 characters.")
+        else:
+            try:
+                reviewer = Reviewer.create(name)
+                print(f'Successfully Added: {reviewer}')
+                user_is_not_created = False
+            except Exception as e:
+                return e
+    
 
 def update_reviewers():
     id_ = input("Enter the reviewer's id: ")
