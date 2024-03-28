@@ -14,7 +14,8 @@ from helpers import (
     list_posts,
     find_post_by_id,
     list_tasks_by_user,
-    list_tasks
+    list_tasks,
+    update_task_status
 )
 
 
@@ -102,12 +103,18 @@ def sub_menu1():
     print("5. Help")
 
 def sub_menu2():
+    print("Please select an option:")
+    print("0. Exit program")
     pass
 
 def sub_menu3():
+    print("Please select an option:")
+    print("0. Exit program")
     pass
 
 def sub_menu4():
+    print("Please select an option:")
+    print("0. Exit program")
     pass
 
 
