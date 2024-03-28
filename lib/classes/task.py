@@ -1,6 +1,5 @@
 from classes.__init__ import CURSOR, CONN
 from classes.post import Post
-from classes.status import Status
 from classes.reviewer import Reviewer
 
 
@@ -8,7 +7,7 @@ TASK_STATUS = [
     'assigned',
     'in_progress',
     'closed',
-    'unassigned0'
+    'unassigned'
 ]
 
 class Task:

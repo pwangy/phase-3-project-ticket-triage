@@ -67,20 +67,34 @@ def delete_reviewer():
 #! Post Helpers
 def list_posts():
     posts = Post.get_all()
-    for post in posts:
-        return post
+    if posts:
+        for post in posts:
+            print(post)
+    else:
+        print("No posts found.")
 
 def find_post_by_id():
     id_ = input("Enter the post's id: ")
     post = Post.find_by_id(id_)
     print(post) if post else print(f'Post {id_} not found')
-    
+
+#! "Error updating post badge: 'ValueError' object has no attribute 'review_badge'"   
 def update_post_badge():
-    new_badge = Post.review_badge()
-    if new_badge:
-        new_badge.rev
+    post_id = input("Enter the post's id: ")
+    post = Post.find_by_id(post_id)
+    if post:
+        new_badge = input("Enter the new review badge: ")
+        try:
+            post.review_badge(new_badge)
+            post.update()
+            print(f"Post {post_id} review badge updated to {new_badge}.")
+        except Exception as e:
+            print(f"Error updating post badge: {e}")
+    else:
+        print(f"Post {post_id} not found.")
 
 #! Task Helpers
+#! STILL NEEDS TESTING ONCE SEED IS COMPLETE!
 def list_tasks():
     tasks = Task.get_all()
     if tasks:
@@ -90,19 +104,58 @@ def list_tasks():
         print("I am sorry, it looks like we have no tasks in our system")
 
 def create_task():
-    pass
+    try:
+        status = int(input("Enter task status (1 for assigned, 2 for in progress, 3 for closed): "))
+        created_at = input("Enter creation date (YYYY-MM-DD): ")
+        updated_at = input("Enter last update date (YYYY-MM-DD): ")
+        post_id = int(input("Enter post id: "))
+        reviewer_id = int(input("Enter reviewer id: "))
+        
+        task = Task.create(status, created_at, updated_at, post_id, reviewer_id)
+        print(f"Task created: {task}")
+    except Exception as e:
+        print(f"Error creating task: {e}")
 
 def update_task_reviewer():
-    pass
+    task_id = input("Enter the task's id: ")
+    task = Task.find_by_id(task_id)
+    if task:
+        new_reviewer_id = input("Enter the new reviewer's id: ")
+        try:
+            task.reviewer_id = new_reviewer_id
+            task.update()
+            print(f"Task {task_id} reviewer updated to {new_reviewer_id}.")
+        except Exception as e:
+            print(f"Error updating task reviewer: {e}")
+    else:
+        print(f"Task {task_id} not found.")
 
 def task_by_reviewer_id():
-    pass
+    reviewer_id = input("Enter the reviewer's id: ")
+    tasks = Task.find_by("reviewer_id", reviewer_id)
+    if tasks:
+        for task in tasks:
+            print(task)
+    else:
+        print(f"No tasks found for reviewer {reviewer_id}.")
 
 def task_by_post_id():
-    pass
+    post_id = input("Enter the post's id: ")
+    tasks = Task.find_by("post_id", post_id)
+    if tasks:
+        for task in tasks:
+            print(task)
+    else:
+        print(f"No tasks found for post {post_id}.")
 
 def sort_tasks():
-    pass
+    tasks = Task.get_all()
+    if tasks:
+        sorted_tasks = sorted(tasks, key=lambda x: x.created_at)
+        for task in sorted_tasks:
+            print(task)
+    else:
+        print("No tasks found.")
 
 def task_by_status(TASK_STATUS, tasks):
     filtered_tasks = [task for task in tasks if task.TASK_STATUS == TASK_STATUS]
@@ -115,6 +168,7 @@ def task_by_status(TASK_STATUS, tasks):
 def sort_task_by_date(tasks):
     return sorted(tasks, key=lambda x: x.created_at)
 
+#! STILL NEEDS TESTING ONCE SEED IS COMPLETE!
 def update_task_status(new_status):
     task_id = input("Please Enter a Task Id: ")
     task = Task.find_by_id(task_id)
