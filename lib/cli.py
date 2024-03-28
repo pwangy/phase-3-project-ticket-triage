@@ -156,13 +156,25 @@ def sub_menu1():
 
 def sub_menu2():
     print("Please select an option:")
-    print("0. Exit program")
-    pass
+    print("0. Sort Tasks")
+    print("1. Find Task by Reviewer")
+    print("2. Find Task by Post Id")
+    print("3. Find Task by Status")
+    print("4. Create Task")
+    print("5. Update Task Reviewer")
+    print("6. Exit program")
+    print("7. Help")
+
 
 def sub_menu3():
     print("Please select an option:")
-    print("0. Exit program")
-    pass
+    print("0. Find Post by Task Id")
+    print("1. Find Post with Most Interactions")
+    print("2. Sort Post by Oldest to Newest")
+    print("3. Find Post by Post Id")
+    print("4. Find Post by Reviewer")
+    print("5. Exit program")
+    print("6. Help")
 
 def sub_menu4():
     print("Please select an option:")
@@ -181,6 +193,6 @@ if __name__ == "__main__":
     random.seed(0)
     main()
     my_tasks()
-    # manage_tasks()
-    # manage_posts()
-    # manage_reviewers()
+    manage_tasks()
+    manage_posts()
+    manage_reviewers()
