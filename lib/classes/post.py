@@ -207,8 +207,8 @@ class Post:
     @classmethod # datetime helper. Parses datetime str
     def _create_post_from_row(cls, row):
         if row:
-            created_at = datetime.strptime(row[3], "%Y-%m-%d %H:%M:%S")
-            return cls(row[1], row[2], row[0], created_at, row[4], row[5])
+            # created_at = datetime.strptime(row[3], "%Y-%m-%d %H:%M:%S")
+            return cls(row[1], row[2], row[0])
         return None
 
     #! ORM Instance Methods

@@ -116,10 +116,10 @@ def sort_post_by_interactions():
     else:
         print("No posts found.")
 
-def sort_post_by_oldest():
+def sort_post_by_newest():
     posts = Post.get_all()
     if posts:
-        sorted_posts = sorted(posts, key=lambda x: x.created_at, reverse=False)
+        sorted_posts = sorted(posts, key=lambda x: x.created_at, reverse=True)
         for post in sorted_posts:
             print(post)
     else:
@@ -127,12 +127,19 @@ def sort_post_by_oldest():
 
 def find_post_by_id():
     id_ = input("Enter the post's id: ")
-    post = Post.find_by_id(id_)
-    print(post) if post else print(f'Post {id_} not found')
+    try:
+        id_int = int(id_)
+    except ValueError:
+        print("Please enter a valid integer ID.")
+        return
+    post = Post.find_by_id(id_int)
+    if post:
+        print(post)
+    else:
+        print(f'Post {id_int} not found')
 
-#! "Error updating post badge: 'ValueError' object has no attribute 'review_badge'"   
 def update_post_badge():
-    post_id = input("Enter the post's id: ")
+    post_id = input("Enter the post's id (Verified, Debunked, Caution): ")
     post = Post.find_by_id(post_id)
     if post:
         new_badge = input("Enter the new review badge: ")

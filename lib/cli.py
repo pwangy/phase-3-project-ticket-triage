@@ -14,7 +14,7 @@ from helpers import (
     list_posts,
     update_post_badge,
     sort_post_by_interactions,
-    sort_post_by_oldest,
+    sort_post_by_newest,
     find_post_by_id,
     list_tasks,
     create_task,
@@ -47,6 +47,28 @@ def main():
             print("That option doesn't exist, please choose an option from the menu.")
 
 #! Sub Menus
+def my_tasks():
+    m = "tasks"
+    while m == "tasks":
+        my_task_menu()
+        choice = input("> ")
+        if choice == "0":
+            update_task_status("in_progress")
+        elif choice == "1":
+            update_post_badge()
+        elif choice == "2":
+            update_task_status("completed")
+        elif choice == "3":
+            list_tasks()
+        elif choice == "4":
+            main()
+        elif choice == "5":
+            exit_program()
+        elif choice == "6":
+            help()
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
+
 def manage_all_tasks():
     m = "manage tasks"
     while m == "manage tasks":
@@ -73,28 +95,6 @@ def manage_all_tasks():
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
-def my_tasks():
-    m = "tasks"
-    while m == "tasks":
-        my_task_menu()
-        choice = input("> ")
-        if choice == "0":
-            update_task_status("in_progress")
-        elif choice == "1":
-            update_post_badge()
-        elif choice == "2":
-            update_task_status("completed")
-        elif choice == "3":
-            list_tasks()
-        elif choice == "4":
-            main()
-        elif choice == "5":
-            exit_program()
-        elif choice == "6":
-            help()
-        else:
-            print("That option doesn't exist, please choose an option from the menu.")
-
 def manage_posts():
     while True:
         post_mgmt_menu()
@@ -104,16 +104,14 @@ def manage_posts():
         elif choice == "1":
             sort_post_by_interactions()
         elif choice == "2":
-            sort_post_by_oldest()
+            sort_post_by_newest()
         elif choice == "3":
             find_post_by_id()
         elif choice == "4":
-            find_post_by_reviewer()
-        elif choice == "5":
             break
-        elif choice == "6":
+        elif choice == "5":
             exit_program()
-        elif choice == "7":
+        elif choice == "6":
             help()
         else:
             print("That option doesn't exist, please choose an option from the menu.")
@@ -200,12 +198,11 @@ def post_mgmt_menu():
     print("[bold cyan]Manage Posts[/bold cyan]")
     print("[bold green]0[/bold green]: View All")
     print("[bold green]1[/bold green]: Most Viral Post")
-    print("[bold green]2[/bold green]: Sort Post by Oldest to Newest")
+    print("[bold green]2[/bold green]: Sort by Most Recent")
     print("[bold green]3[/bold green]: Find Post by Id")
-    print("[bold green]4[/bold green]: Find Post by Reviewer")
-    print("[bold green]5[/bold green]: Back to Main Menu")
-    print("[bold green]6[/bold green]: Exit program")
-    print("[bold green]7[/bold green]: Help")
+    print("[bold green]4[/bold green]: Back to Main Menu")
+    print("[bold green]5[/bold green]: Exit program")
+    print("[bold green]6[/bold green]: Help")
 
 def reviewer_mgmt_menu():
     print("[bold cyan]Manage Reviewers[/bold cyan]")
