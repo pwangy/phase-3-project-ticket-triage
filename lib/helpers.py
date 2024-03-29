@@ -6,6 +6,13 @@ from classes.post import Post
 from classes.task import Task
 
 
+STATUS_TYPES = [
+    1, # assigned
+    2, # in_progress
+    3, # closed
+    4 # unassigned
+]
+
 def exit_program():
     print("Thanks for reviewing!")
     exit()
@@ -173,10 +180,10 @@ def list_tasks():
 def create_task():
     try:
         status = int(input("Enter task status (1 for assigned, 2 for in progress, 3 for closed, 4 for unassigned): "))
-        created_at = input("Enter creation date (YYYY-MM-DD): ")
-        updated_at = input("Enter last update date (YYYY-MM-DD): ")
-        
-        task = Task.create(status, created_at, updated_at)
+        post_id = int(input("Enter post ID: "))
+        reviewer_id = int(input("Enter reviewer ID: "))
+
+        task = Task.create(STATUS_TYPES[status-1], post_id, reviewer_id)
         print(f"Task created: {task}")
     except Exception as e:
         print(f"Error creating task: {e}")
@@ -187,6 +194,7 @@ def update_task_reviewer():
     if task:
         new_reviewer_id = input("Enter the new reviewer's id: ")
         try:
+            new_reviewer_id = int(new_reviewer_id)
             task.reviewer_id = new_reviewer_id
             task.update()
             print(f"Task {task_id} reviewer updated to {new_reviewer_id}.")

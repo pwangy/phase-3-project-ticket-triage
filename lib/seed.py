@@ -64,7 +64,8 @@ def seed_tables():
         try:
             status = fake.random_element(elements=STATUS_TYPES)
             post = fake.random_int(min=11, max=250)
-            Task.create(post_id=post, status=status)
+            reviewer = fake.random_int(min=1, max=10)
+            Task.create(post_id=post, status=status, reviewer_id=reviewer)
             print('Created task')
         except Exception as e:
             print("Failed to create Post: ", e)

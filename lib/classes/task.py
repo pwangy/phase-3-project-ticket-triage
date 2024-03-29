@@ -22,11 +22,11 @@ STATUS_TYPES = [
 class Task:
     all = {}
 
-    def __init__(self, post_id, status=4, id=None):
+    def __init__(self, post_id, status=4, reviewer_id=1, id=None):
         self.post_id = post_id
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        self.reviewer_id = 0
+        self.reviewer_id = reviewer_id
         self.set_status(status)
         self.id = id
 
@@ -108,7 +108,7 @@ class Task:
                     """
                     CREATE TABLE IF NOT EXISTS tasks (
                         id INTEGER PRIMARY KEY,
-                        post_id INTEGER UNIQUE,
+                        post_id INTEGER,
                         created_at TEXT,
                         updated_at TEXT,
                         reviewer_id INTEGER,
@@ -130,10 +130,10 @@ class Task:
             return e
 
     @classmethod
-    def create(cls, post_id, status):
+    def create(cls, post_id, status, reviewer_id):
         try:
             with CONN:
-                task = cls(post_id, status)
+                task = cls(post_id, status, reviewer_id)
                 return task.save()
         except Exception as e:
             return (f"{e} Task was not created")
@@ -185,12 +185,13 @@ class Task:
             row = CURSOR.fetchone()
             return cls._create_task_from_row(row) if row else None
         except Exception as e:
-            return e
+            print(f"Error occurred while finding tasks by {attr}: {e}")
+            return None
         
     @classmethod # datetime helper. Parses datetime str
     def _create_task_from_row(cls, row):
         if row:
-            return cls(row[1], row[5], row[0]) 
+            return cls(row[1], row[5], row[4], row[0]) 
         return None
 
     #! ORM Instance Methods
