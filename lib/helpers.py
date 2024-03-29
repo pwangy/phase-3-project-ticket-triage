@@ -82,6 +82,50 @@ def list_posts():
     else:
         print("No posts found.")
 
+def find_posts_by_reviewer(reviewer_id):
+    tasks = Task.find_by("reviewer_id", reviewer_id)
+    if tasks:
+        post_ids = [task.post_id for task in tasks]
+        posts = [Post.find_by_id(post_id) for post_id in post_ids if post_id is not None]
+        if posts:
+            for post in posts:
+                print(post)
+        else:
+            print(f"No posts found for reviewer {reviewer_id}.")
+    else:
+        print(f"No tasks found for reviewer {reviewer_id}.")
+
+def find_posts_by_post_id(post_id):
+    tasks = Task.find_by("post_id", post_id)
+    if tasks:
+        post_ids = [task.post_id for task in tasks]
+        posts = [Post.find_by_id(post_id) for post_id in post_ids if post_id is not None]
+        if posts:
+            for post in posts:
+                print(post)
+        else:
+            print(f"No posts found for post {post_id}.")
+    else:
+        print(f"No tasks found for post {post_id}.")
+
+def sort_post_by_interactions():
+    posts = Post.get_all()
+    if posts:
+        sorted_posts = sorted(posts, key=lambda x: x.is_viral, reverse=True)
+        for post in sorted_posts:
+            print(post)
+    else:
+        print("No posts found.")
+
+def sort_post_by_oldest():
+    posts = Post.get_all()
+    if posts:
+        sorted_posts = sorted(posts, key=lambda x: x.created_at, reverse=False)
+        for post in sorted_posts:
+            print(post)
+    else:
+        print("No posts found.")
+
 def find_post_by_id():
     id_ = input("Enter the post's id: ")
     post = Post.find_by_id(id_)
@@ -107,10 +151,10 @@ def update_post_badge():
 def list_tasks():
     tasks = Task.get_all()
     if tasks:
-        for tasks in tasks:
-            return tasks
+        for task in tasks:
+            print(task)
     else:
-        print("I am sorry, it looks like we have no tasks in our system")
+        print("I am sorry, no tasks found in our system")
 
 def create_task():
     try:
@@ -157,10 +201,13 @@ def task_by_post_id():
     else:
         print(f"No tasks found for post {post_id}.")
 
-def sort_tasks():
+def sort_tasks(sort_by_created_at=True):
     tasks = Task.get_all()
     if tasks:
-        sorted_tasks = sorted(tasks, key=lambda x: x.created_at)
+        if sort_by_created_at:
+            sorted_tasks = sorted(tasks, key=lambda x: x.created_at, reverse=False)
+        else:
+            sorted_tasks = sorted(tasks, key=lambda x: x.status)
         for task in sorted_tasks:
             print(task)
     else:

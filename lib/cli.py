@@ -13,6 +13,8 @@ from helpers import (
     delete_reviewer,
     list_posts,
     update_post_badge,
+    sort_post_by_interactions,
+    sort_post_by_oldest,
     find_post_by_id,
     list_tasks,
     create_task,
