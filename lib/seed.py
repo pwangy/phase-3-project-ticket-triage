@@ -29,7 +29,7 @@ def drop_tables():
     Task.drop_table()
     Reviewer.drop_table()
     Post.drop_table()
-    
+
 def create_tables():
     Post.create_table()
     Reviewer.create_table()
@@ -60,15 +60,16 @@ def seed_tables():
         except Exception as e:
             print("Failed to create Post: ", e)
 
-    for _ in range(90):
-        try:
-            status = fake.random_int(min=1, max=4)
-            post = fake.random_int(min=11, max=250)
-            reviewer = fake.random_int(min=1, max=10)
-            Task.create(post_id=post, status=status, reviewer_id=reviewer)
-            print('Created task')
-        except Exception as e:
-            print("Failed to create Post: ", e)
+# do not use
+    # for _ in range(90):
+    #     try:
+    #         status = fake.random_int(min=1, max=4)
+    #         post = fake.random_int(min=11, max=250)
+    #         reviewer = fake.random_int(min=1, max=10)
+    #         Task.create(post_id=post, status=status, reviewer_id=reviewer)
+    #         print('Created task')
+    #     except Exception as e:
+    #         print("Failed to create Post: ", e)
 
 if __name__ == "__main__":
     drop_tables()
