@@ -91,7 +91,6 @@ class Post:
         elif not self.is_viral:
             raise AttributeError("A post must be viral in order to create a task.")
         else: Task.create(self.id, status=4)
-        
 
     #! ORM Class Methods
     @classmethod
@@ -136,19 +135,19 @@ class Post:
         except Exception as e:
             return e
 
-    @classmethod #create new instantance of Post based on info in db
-    def new_from_db(cls, row):
-        try:
-            post = cls(
-                total_interactions=row[1],
-                content_type=row[2],
-                review_badge=row[4],
-                id=row[0]
-            )
-            cls.all[post.id] = post
-            return post
-        except Exception as e:
-            return e
+    # @classmethod #create new instantance of Post based on info in db
+    # def new_from_db(cls, row):
+    #     try:
+    #         post = cls(
+    #             total_interactions=row[1],
+    #             content_type=row[2],
+    #             review_badge=row[4],
+    #             id=row[0]
+    #         )
+    #         cls.all[post.id] = post
+    #         return post
+    #     except Exception as e:
+    #         return e
 
     @classmethod
     def get_all(cls):

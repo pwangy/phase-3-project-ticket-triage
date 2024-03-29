@@ -90,6 +90,24 @@ class Task:
         from classes.reviewer import Reviewer
         return Reviewer.find_by_id(self.reviewer_id) if self.reviewer_id else None
 
+    def viral_post(self):
+        from classes.post import Post
+        try:
+            with CONN:
+                CURSOR.execute(
+                    """
+                    SELECT * FROM posts
+                    WHERE is_viral = 1
+                    """,
+                    (self.id,),
+                )
+                rows = CURSOR.fetchall()
+                return [
+                    Post(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows
+                ]
+        except Exception as e:
+            return (f"Error fetching posts: ", e)
+
     #! ORM Class Methods
     @classmethod
     def create_table(cls):
@@ -99,11 +117,13 @@ class Task:
                     """
                     CREATE TABLE IF NOT EXISTS tasks (
                         id INTEGER PRIMARY KEY,
-                        post_id INTEGER,
+                        post_id INTEGER UNIQUE,
                         created_at TEXT,
                         updated_at TEXT,
                         reviewer_id INTEGER,
                         status INTEGER
+                        FOREIGN KEY (post_id) REFERENCES posts(id),
+                        FOREIGN KEY (reviewer_id) REFERENCES reviewers(id)
                     );
                     """
                 )

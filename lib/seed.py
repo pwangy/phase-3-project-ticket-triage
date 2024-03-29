@@ -57,7 +57,7 @@ def seed_tasks():
     posts = Post.get_all()
     for post in posts:
         try:
-            post.task()
+            Task.create(post.task)
             print('Created task for post: ', post.id)
         except Exception as e:
             print("Failed to create Task: ", e)
