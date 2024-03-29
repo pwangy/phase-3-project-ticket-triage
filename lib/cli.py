@@ -29,7 +29,7 @@ from helpers import (
 def main():
     while True:
         menu()
-        choice = input("> ")
+        choice = input("TICKET TRIAGE > MAIN > ")
         if choice == "0":
             my_tasks()
         if choice == "1":
@@ -50,7 +50,7 @@ def my_tasks():
     m = "tasks"
     while m == "tasks":
         my_task_menu()
-        choice = input("> ")
+        choice = input("TICKET TRIAGE > MY TASKS > ")
         if choice == "0":
             update_task_status("in_progress")
         elif choice == "1":
@@ -72,7 +72,7 @@ def manage_all_tasks():
     m = "manage tasks"
     while m == "manage tasks":
         task_mgmt_menu()
-        choice = input ("> ")
+        choice = input ("TICKET TRIAGE > MANAGE TASKS > ")
         if choice == "0":
             list_tasks()
         elif choice == "1":
@@ -97,7 +97,7 @@ def manage_all_tasks():
 def manage_posts():
     while True:
         post_mgmt_menu()
-        choice = input ("> ")
+        choice = input ("TICKET TRIAGE >  MANAGE POSTS > ")
         if choice == "0":
             list_posts()
         elif choice == "1":
@@ -118,7 +118,7 @@ def manage_posts():
 def manage_reviewers():
     while True:
         reviewer_mgmt_menu()
-        choice = input ("> ")
+        choice = input ("TICKET TRIAGE > MANAGE REVIEWERS > ")
         if choice == "0":
             list_reviewers()
         elif choice == "1":
@@ -144,7 +144,7 @@ def manage_reviewers():
 def help():
     while True:
         help_menu()
-        choice = input ("> ")
+        choice = input ("TICKET TRIAGE > HELP > ")
         if choice == "0":
             my_tasks()
         if choice == "1":
@@ -162,68 +162,68 @@ def help():
 
 #! Print Menu Options
 def menu():
-    print("[bold magenta]WELCOME REVIEWER:rainbow:[/bold magenta]")
-    print("[bold cyan]Main Menu[/bold cyan]")
-    print("[bold green]0[/bold green]: My Tasks")
-    print("[bold green]1[/bold green]: Manage All Tasks")
-    print("[bold green]2[/bold green]: Manage Posts")
-    print("[bold green]3[/bold green]: Manage Reviewers")
-    print("[bold green]8[/bold green]: Exit")
-    print("[bold green]9[/bold green]: Help")
+    print("[bold magenta]WELCOME REVIEWER:rainbow:[/]")
+    print("[bold cyan]Main Menu[/]")
+    print("[bold green]0[/]: My Tasks")
+    print("[bold green]1[/]: Manage All Tasks")
+    print("[bold green]2[/]: Manage Posts")
+    print("[bold green]3[/]: Manage Reviewers")
+    print("[bold green]8[/]: Exit")
+    print("[bold green]9[/]: Help")
 
 def my_task_menu():
-    print("[bold cyan]My Tasks[/bold cyan]")
-    print("[bold green]0[/bold green]: Begin Task")
-    print("[bold green]1[/bold green]: Update Post Badge")
-    print("[bold green]2[/bold green]: Complete Task")
-    print("[bold green]3[/bold green]: Task List")
-    print("[bold green]4[/bold green]: Back to Main Menu")
-    print("[bold green]8[/bold green]: Exit program")
-    print("[bold green]9[/bold green]: Help")
+    print("[bold cyan]My Tasks[/]")
+    print("[bold green]0[/]: Begin Task")
+    print("[bold green]1[/]: Update Post Badge")
+    print("[bold green]2[/]: Complete Task")
+    print("[bold green]3[/]: Task List") #
+    print("[bold green]4[/]: Back to Main Menu")
+    print("[bold green]8[/]: Exit")
+    print("[bold green]9[/]: Help")
 
 def task_mgmt_menu():
-    print("[bold cyan]Manage Tasks[/bold cyan]")
-    print("[bold green]0[/bold green]: View All")
-    print("[bold green]1[/bold green]: Create Tasks")
-    print("[bold green]2[/bold green]: Find Task by Reviewer Id")
-    print("[bold green]3[/bold green]: Find Task by Post Id")
-    print("[bold green]4[/bold green]: Find Task by Status")
-    print("[bold green]5[/bold green]: Update Task Reviewer")
-    print("[bold green]6[/bold green]: Back to Main Menu")
-    print("[bold green]8[/bold green]: Exit program")
-    print("[bold green]9[/bold green]: Help")
+    print("[bold cyan]Manage Tasks[/]")
+    print("[bold green]0[/]: View All")
+    print("[bold green]1[/]: Create Tasks")
+    print("[bold green]2[/]: Find Task by Reviewer Id")
+    print("[bold green]3[/]: Find Task by Post Id")
+    print("[bold green]4[/]: Find Task by Status")
+    print("[bold green]5[/]: Update Task Reviewer")
+    print("[bold green]6[/]: Back to Main Menu")
+    print("[bold green]8[/]: Exit")
+    print("[bold green]9[/]: Help")
 
 def post_mgmt_menu():
-    print("[bold cyan]Manage Posts[/bold cyan]")
-    print("[bold green]0[/bold green]: View All")
-    print("[bold green]1[/bold green]: Most Viral Post")
-    print("[bold green]2[/bold green]: Sort by Most Recent")
-    print("[bold green]3[/bold green]: Find Post by Id")
-    print("[bold green]4[/bold green]: Back to Main Menu")
-    print("[bold green]8[/bold green]: Exit program")
-    print("[bold green]9[/bold green]: Help")
+    print("[bold cyan]Manage Posts[/]")
+    print("[bold green]0[/]: View All")
+    print("[bold green]1[/]: Most Viral Post")
+    print("[bold green]2[/]: Sort by Most Recent")
+    print("[bold green]3[/]: Find Post by Id")
+    print("[bold green]4[/]: Back to Main Menu")
+    print("[bold green]8[/]: Exit")
+    print("[bold green]9[/]: Help")
 
 def reviewer_mgmt_menu():
-    print("[bold cyan]Manage Reviewers[/bold cyan]")
-    print("[bold green]0[/bold green]: List Reviewers")
-    print("[bold green]1[/bold green]: Find Reviewer by Id")
-    print("[bold green]2[/bold green]: Find Reviewer by Name")
-    print("[bold green]3[/bold green]: Update Reviewer")
-    print("[bold green]4[/bold green]: Add Reviewer")
-    print("[bold green]5[/bold green]: Delete Reviewer")
-    print("[bold green]6[/bold green]: Back to Main Menu")
-    print("[bold green]8[/bold green]: Exit Program")
-    print("[bold green]9[/bold green]: Help")
+    print("[bold cyan]Manage Reviewers[/]")
+    print("[bold green]0[/]: List Reviewers")
+    print("[bold green]1[/]: Find Reviewer by Id")
+    print("[bold green]2[/]: Find Reviewer by Name")
+    print("[bold green]3[/]: Update Reviewer")
+    print("[bold green]4[/]: Add Reviewer")
+    print("[bold green]5[/]: Delete Reviewer")
+    print("[bold green]6[/]: Back to Main Menu")
+    print("[bold green]8[/]: Exit")
+    print("[bold green]9[/]: Help")
     
 def help_menu():
-    print("[bold magenta]Welcome to the Help section!:butterfly:[/bold magenta]")
-    print("[bold cyan]Here are the available options:[/bold cyan]")
-    print("[bold green]0[/bold green]: View, Begin, Update, and Complete Your Tasks [bold green]Here![/bold green]")
-    print("[bold green]1[/bold green]: View All, Sort, Add, Reassign, and Find Tasks by Reviewer/Post [bold green]Here![/bold green]")
-    print("[bold green]2[/bold green]: View All, Find By Reviewer/ID, and Sort Posts [bold green]Here![/bold green]")
-    print("[bold green]3[/bold green]: View All, Find by Name or Id, Update, Add, and Delete Reviewers [bold green]Here![/bold green]")
-    print("[bold green]4[/bold green]: Back to Main Menu")
-    print("[bold green]8[/bold green]: Exit program")
+    print("[bold magenta]Welcome to the Help section!:butterfly:[/]")
+    print("[bold cyan]Available Options:[/]")
+    print("[bold green]0[/]: View, Begin, Update, and Complete [bold green]Your Tasks[/]")
+    print("[bold green]1[/]: View [bold green]All Tasks[/], Sort, Add, Reassign, and Find by Reviewer/Post")
+    print("[bold green]2[/]: View [bold green]All Posts[/], Find by Reviewer ID, and Sort")
+    print("[bold green]3[/]: View [bold green]All Reviewers[/], Find by Name or ID, Update, Add, and Delete")
+    print("[bold green]4[/]: Back to [bold green]Main Menu[/]")
+    print("[bold green]8[/]: Exit")
 
 if __name__ == "__main__":
     random.seed(0)
