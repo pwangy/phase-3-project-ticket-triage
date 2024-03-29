@@ -168,7 +168,6 @@ def update_post_badge():
 def list_tasks():
     try:
         tasks = Task.get_all()
-        print(tasks)
         if tasks:
             for task in tasks:
                 print(task)
@@ -183,7 +182,7 @@ def create_task():
         post_id = int(input("Enter post ID: "))
         reviewer_id = int(input("Enter reviewer ID: "))
 
-        task = Task.create(STATUS_TYPES[status-1], post_id, reviewer_id)
+        task = Task.create(status-1, post_id, reviewer_id)
         print(f"Task created: {task}")
     except Exception as e:
         print(f"Error creating task: {e}")

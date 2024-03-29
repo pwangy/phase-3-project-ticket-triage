@@ -85,7 +85,7 @@ class Task:
             self._reviewer_id = reviewer_id
 
     def set_status(self, new_status):
-        if not new_status in STATUS_TYPES:
+        if not new_status in (1, 2, 3, 4,):
             raise ValueError("status must be in list of STATUS_TYPES")
         else:
             self.status = new_status
@@ -150,6 +150,7 @@ class Task:
                 rows = CURSOR.fetchall()
                 tasks = []
                 for row in rows:
+                    print(row)
                     task = cls._create_task_from_row(row)
                     tasks.append(task)
                 return tasks

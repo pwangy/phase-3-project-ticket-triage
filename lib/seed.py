@@ -62,7 +62,7 @@ def seed_tables():
 
     for _ in range(90):
         try:
-            status = fake.random_element(elements=STATUS_TYPES)
+            status = fake.random_int(min=1, max=4)
             post = fake.random_int(min=11, max=250)
             reviewer = fake.random_int(min=1, max=10)
             Task.create(post_id=post, status=status, reviewer_id=reviewer)
