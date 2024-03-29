@@ -12,12 +12,12 @@ STATUS_TYPES = [
     4 # unassigned
 ]
 
-TASK_STATUS = [
-    'assigned',
-    'in_progress',
-    'closed',
-    'unassigned'
-]
+# TASK_STATUS = [
+#     'assigned',
+#     'in_progress',
+#     'closed',
+#     'unassigned'
+# ]
 
 class Task:
     all = {}
@@ -112,7 +112,7 @@ class Task:
                         created_at TEXT,
                         updated_at TEXT,
                         reviewer_id INTEGER,
-                        status INTEGER
+                        status INTEGER,
                         FOREIGN KEY (post_id) REFERENCES posts(id),
                         FOREIGN KEY (reviewer_id) REFERENCES reviewers(id)
                     );

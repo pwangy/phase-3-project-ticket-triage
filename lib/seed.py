@@ -52,7 +52,7 @@ def seed_tables():
         except Exception as e:
             print("Failed to create Post: ", e)
 
-    for _ in range(240): #create viral posts
+    for _ in range(90): #create viral posts
         try:
             number = fake.random_int(min=3500000, max=200000000)
             Post.create(number, fake.random_element(elements=CONTENT_TYPES), review_badge=None)
@@ -60,14 +60,14 @@ def seed_tables():
         except Exception as e:
             print("Failed to create Post: ", e)
 
-    # for _ in range(240):
-    #     try:
-    #         status = fake.random_element(elements=STATUS_TYPES)
-    #         post = fake.random_int(min=11, max=250)
-    #         Task.create(post_id=post, status=status)
-    #         print('Created task')
-    #     except Exception as e:
-    #         print("Failed to create Post: ", e)
+    for _ in range(90):
+        try:
+            status = fake.random_element(elements=STATUS_TYPES)
+            post = fake.random_int(min=11, max=250)
+            Task.create(post_id=post, status=status)
+            print('Created task')
+        except Exception as e:
+            print("Failed to create Post: ", e)
 
 if __name__ == "__main__":
     drop_tables()
