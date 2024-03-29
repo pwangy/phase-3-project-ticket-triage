@@ -148,7 +148,11 @@ class Task:
                     """
                 )
                 rows = CURSOR.fetchall()
-                return [cls(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows]
+                tasks = []
+                for row in rows:
+                    task = cls._create_task_from_row(row)
+                    tasks.append(task)
+                return tasks
         except Exception as e:
             return e
 
@@ -164,7 +168,7 @@ class Task:
                     (id,)
                 )
                 row = CURSOR.fetchone()
-            return cls(row[1], row[2], row[3], row[4], row[5], row[0]) if row else None
+            return cls._create_task_from_row(row)  if row else None
         except Exception as e:
             return e
 
@@ -179,9 +183,15 @@ class Task:
                 (val,)
             )
             row = CURSOR.fetchone()
-            return cls(row[1], row[2], row[3], row[4], row[5], row[0]) if row else None
+            return cls._create_task_from_row(row) if row else None
         except Exception as e:
             return e
+        
+    @classmethod # datetime helper. Parses datetime str
+    def _create_task_from_row(cls, row):
+        if row:
+            return cls(row[1], row[5], row[0]) 
+        return None
 
     #! ORM Instance Methods
     def save(self):
