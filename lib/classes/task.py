@@ -130,11 +130,11 @@ class Task:
             return e
 
     @classmethod
-    def create(cls, post_id, status, reviewer_id=0):
+    def create(cls, post_id, status):
         try:
             with CONN:
-                task = cls(post_id, status, reviewer_id)
-            return task.save()
+                task = cls(post_id, status)
+                return task.save()
         except Exception as e:
             return (f"{e} Task was not created")
 

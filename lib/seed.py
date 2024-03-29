@@ -60,30 +60,20 @@ def seed_tables():
         except Exception as e:
             print("Failed to create Post: ", e)
 
-    for i in range(11, 250):
-        try:
-            status = fake.random_element(elements=STATUS_TYPES)
-            Task.create(post_id=i, status=status)
-            print('Created task')
-        except Exception as e:
-            print("Failed to create Task: ", e)
-
-# def create_tasks():
-#     posts = Post.get_all()
-#     for post in posts:
-#         try:
-#             if post.is_viral:
-#                 Task.create(post.id, status=4)
-#                 print('Created task for post:', post.id)
-#         except Exception as e:
-#             print("Failed to create task for post:", post.id, "Error:", e)
+    # for _ in range(240):
+    #     try:
+    #         status = fake.random_element(elements=STATUS_TYPES)
+    #         post = fake.random_int(min=11, max=250)
+    #         Task.create(post_id=post, status=status)
+    #         print('Created task')
+    #     except Exception as e:
+    #         print("Failed to create Post: ", e)
 
 if __name__ == "__main__":
     drop_tables()
-    print("Tables dropped!")
+    print("Tables dropped")
     create_tables()
-    print("Tables created!")
+    print("Tables created")
     seed_tables()
-    # create_tasks()
     print("db seeded!")
     import ipdb; ipdb.set_trace()
