@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #lib/classes.task.py
 from classes.__init__ import CURSOR, CONN
+from classes.post import Post
+from classes.reviewer import Reviewer
 from datetime import datetime
 
 STATUS_TYPES = [
@@ -10,12 +12,11 @@ STATUS_TYPES = [
     4 # unassigned
 ]
 
-
 TASK_STATUS = [
     'assigned',
     'in_progress',
     'closed',
-    'unassigned0'
+    'unassigned'
 ]
 
 class Task:

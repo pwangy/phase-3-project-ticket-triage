@@ -1,5 +1,5 @@
 # Ticket Triage
-Ever wondered just *how difficult it actually is* for social media platforms to trigger a fact checking task once a post become viral? We did! 
+Ever wondered just *how difficult it actually is* for social media platforms to trigger a fact checking task once a post becomes viral? We did! 
 
 And then we decided to build an app about it. 
 
