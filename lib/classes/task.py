@@ -10,6 +10,14 @@ STATUS_TYPES = [
     4 # unassigned
 ]
 
+
+TASK_STATUS = [
+    'assigned',
+    'in_progress',
+    'closed',
+    'unassigned0'
+]
+
 class Task:
     all = {}
 

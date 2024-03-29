@@ -22,6 +22,8 @@ class Reviewer:
     def name(self, name):
         if not isinstance(name, str):
             raise TypeError("Name must be a string.")
+        elif len(name) <= 2:
+            raise ValueError("Name must be at least 2 characters.")
         else:
             self._name = name
 
@@ -33,7 +35,7 @@ class Reviewer:
                     """
                     CREATE TABLE IF NOT EXISTS reviewers (
                         id INTEGER PRIMARY KEY,
-                        name TEXT
+                        name TEXT NOT NULL
                     );
                     """
                 )
@@ -57,7 +59,7 @@ class Reviewer:
         try:
             with CONN:
                 reviewer = cls(name)
-            return reviewer.save()
+                return reviewer.save()
         except Exception as e:
             return e
 
