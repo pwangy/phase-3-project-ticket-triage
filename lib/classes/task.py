@@ -12,21 +12,14 @@ STATUS_TYPES = [
     4 # unassigned
 ]
 
-# TASK_STATUS = [
-#     'assigned',
-#     'in_progress',
-#     'closed',
-#     'unassigned'
-# ]
-
 class Task:
     all = {}
 
-    def __init__(self, post_id, status=4, id=None):
+    def __init__(self, post_id, status=4, reviewer_id=1, id=None):
         self.post_id = post_id
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        self.reviewer_id = 0
+        self.reviewer_id = reviewer_id
         self.set_status(status)
         self.id = id
 
@@ -85,7 +78,8 @@ class Task:
             self._reviewer_id = reviewer_id
 
     def set_status(self, new_status):
-        if not new_status in STATUS_TYPES:
+        # if not new_status in STATUS_TYPES:
+        if not new_status in (1, 2, 3, 4,): # make cli work
             raise ValueError("status must be in list of STATUS_TYPES")
         else:
             self.status = new_status
@@ -104,11 +98,11 @@ class Task:
     def create_table(cls):
         try:
             with CONN:
-                CURSOR.execute(
+                CURSOR.execute( #removed UNIQUE from post_id for cli
                     """
                     CREATE TABLE IF NOT EXISTS tasks (
                         id INTEGER PRIMARY KEY,
-                        post_id INTEGER UNIQUE,
+                        post_id INTEGER,
                         created_at TEXT,
                         updated_at TEXT,
                         reviewer_id INTEGER,
@@ -130,10 +124,10 @@ class Task:
             return e
 
     @classmethod
-    def create(cls, post_id, status):
+    def create(cls, post_id, status, reviewer_id):
         try:
             with CONN:
-                task = cls(post_id, status)
+                task = cls(post_id, status, reviewer_id)
                 return task.save()
         except Exception as e:
             return (f"{e} Task was not created")
@@ -148,7 +142,12 @@ class Task:
                     """
                 )
                 rows = CURSOR.fetchall()
-                return [cls(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows]
+                tasks = []
+                for row in rows:
+                    print(row)
+                    task = cls._create_task_from_row(row)
+                    tasks.append(task)
+                return tasks
         except Exception as e:
             return e
 
@@ -164,7 +163,7 @@ class Task:
                     (id,)
                 )
                 row = CURSOR.fetchone()
-            return cls(row[1], row[2], row[3], row[4], row[5], row[0]) if row else None
+            return cls._create_task_from_row(row) if row else None
         except Exception as e:
             return e
 
@@ -179,9 +178,16 @@ class Task:
                 (val,)
             )
             row = CURSOR.fetchone()
-            return cls(row[1], row[2], row[3], row[4], row[5], row[0]) if row else None
+            return cls._create_task_from_row(row) if row else None
         except Exception as e:
-            return e
+            print(f"Error occurred while finding tasks by {attr}: {e}")
+            return None
+
+    @classmethod # datetime helper. Parses datetime str
+    def _create_task_from_row(cls, row):
+        if row:
+            return cls(row[1], row[5], row[4], row[0]) 
+        return None
 
     #! ORM Instance Methods
     def save(self):
@@ -240,16 +246,3 @@ class Task:
             return self
         except Exception as e:
             return e
-
-    #! should this live in helpers?
-    # def update_task_status():
-    #     id_ = input("Enter the Task Id Number: ")
-    #     if task := Task.find_by_id(id_):
-    #         try:         
-    #             status = input("Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified")
-    #             task.status = status
-    #             print(f'Status Changed to: {status}')
-    #         except Exception as e:
-    #             print("Error updating statu: ",e)
-    #     else:
-    #         print(f'Task{id_} not found')
