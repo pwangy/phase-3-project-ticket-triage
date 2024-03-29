@@ -136,7 +136,7 @@ class Post:
                 post = cls(total_interactions, content_type, review_badge)
             return post.save()
         except Exception as e:
-            return("Sorry! Could not create new post: ", e)
+            return("Could not create new post: ", e)
 
     @classmethod #create new instantance of Post based on info in db
     def new_from_db(cls, row):

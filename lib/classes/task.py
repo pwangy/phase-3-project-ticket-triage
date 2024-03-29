@@ -12,12 +12,12 @@ STATUS_TYPES = [
     4 # unassigned
 ]
 
-TASK_STATUS = [
-    'assigned',
-    'in_progress',
-    'closed',
-    'unassigned'
-]
+# TASK_STATUS = [
+#     'assigned',
+#     'in_progress',
+#     'closed',
+#     'unassigned'
+# ]
 
 class Task:
     all = {}
@@ -112,7 +112,7 @@ class Task:
                         created_at TEXT,
                         updated_at TEXT,
                         reviewer_id INTEGER,
-                        status INTEGER
+                        status INTEGER,
                         FOREIGN KEY (post_id) REFERENCES posts(id),
                         FOREIGN KEY (reviewer_id) REFERENCES reviewers(id)
                     );
@@ -130,11 +130,11 @@ class Task:
             return e
 
     @classmethod
-    def create(cls, post_id, status, reviewer_id=0):
+    def create(cls, post_id, status):
         try:
             with CONN:
-                task = cls(post_id, status, reviewer_id)
-            return task.save()
+                task = cls(post_id, status)
+                return task.save()
         except Exception as e:
             return (f"{e} Task was not created")
 
