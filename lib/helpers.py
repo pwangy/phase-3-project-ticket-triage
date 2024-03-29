@@ -158,7 +158,7 @@ def list_tasks():
 
 def create_task():
     try:
-        status = int(input("Enter task status (1 for assigned, 2 for in progress, 3 for closed): "))
+        status = int(input("Enter task status (1 for assigned, 2 for in progress, 3 for closed, 4 for unassigned): "))
         created_at = input("Enter creation date (YYYY-MM-DD): ")
         updated_at = input("Enter last update date (YYYY-MM-DD): ")
         post_id = int(input("Enter post id: "))
