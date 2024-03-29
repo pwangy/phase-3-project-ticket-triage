@@ -6,6 +6,13 @@ from classes.post import Post
 from classes.task import Task
 
 
+STATUS_TYPES = [
+    1, # assigned
+    2, # in_progress
+    3, # closed
+    4 # unassigned
+]
+
 def exit_program():
     print("Thanks for reviewing!")
     exit()
@@ -116,10 +123,10 @@ def sort_post_by_interactions():
     else:
         print("No posts found.")
 
-def sort_post_by_oldest():
+def sort_post_by_newest():
     posts = Post.get_all()
     if posts:
-        sorted_posts = sorted(posts, key=lambda x: x.created_at, reverse=False)
+        sorted_posts = sorted(posts, key=lambda x: x.created_at, reverse=True)
         for post in sorted_posts:
             print(post)
     else:
@@ -127,42 +134,55 @@ def sort_post_by_oldest():
 
 def find_post_by_id():
     id_ = input("Enter the post's id: ")
-    post = Post.find_by_id(id_)
-    print(post) if post else print(f'Post {id_} not found')
+    try:
+        id_int = int(id_)
+    except ValueError:
+        print("Please enter a valid integer ID.")
+        return
+    post = Post.find_by_id(id_int)
+    if post:
+        print(post)
+    else:
+        print(f'Post {id_int} not found')
 
-#! "Error updating post badge: 'ValueError' object has no attribute 'review_badge'"   
 def update_post_badge():
     post_id = input("Enter the post's id: ")
     post = Post.find_by_id(post_id)
     if post:
-        new_badge = input("Enter the new review badge: ")
+        new_badge = input("Enter the new review badge (Verified, Debunked, Caution): ")
         try:
-            post.review_badge(new_badge)
-            post.update()
-            print(f"Post {post_id} review badge updated to {new_badge}.")
-        except Exception as e:
+            if new_badge:
+                post.review_badge = new_badge
+                post.update()
+                print(f"Post {post_id} review badge updated to {new_badge}.")
+            else:
+                raise ValueError("Invalid review badge. Please enter one of: Verified, Debunked, Caution")
+        except ValueError as e:
             print(f"Error updating post badge: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
     else:
         print(f"Post {post_id} not found.")
 
 #Task
 def list_tasks():
-    tasks = Task.get_all()
-    if tasks:
-        for task in tasks:
-            print(task)
-    else:
-        print("I am sorry, no tasks found in our system")
+    try:
+        tasks = Task.get_all()
+        if tasks:
+            for task in tasks:
+                print(task)
+        else:
+            print("I am sorry, no tasks found in our system")
+    except ValueError as e:
+        print(f'Error occured while retrieving tasks: {e}')
 
 def create_task():
     try:
         status = int(input("Enter task status (1 for assigned, 2 for in progress, 3 for closed, 4 for unassigned): "))
-        created_at = input("Enter creation date (YYYY-MM-DD): ")
-        updated_at = input("Enter last update date (YYYY-MM-DD): ")
-        post_id = int(input("Enter post id: "))
-        reviewer_id = int(input("Enter reviewer id: "))
-        
-        task = Task.create(status, created_at, updated_at, post_id, reviewer_id)
+        post_id = int(input("Enter post ID: "))
+        reviewer_id = int(input("Enter reviewer ID: "))
+
+        task = Task.create(status-1, post_id, reviewer_id)
         print(f"Task created: {task}")
     except Exception as e:
         print(f"Error creating task: {e}")
@@ -173,6 +193,7 @@ def update_task_reviewer():
     if task:
         new_reviewer_id = input("Enter the new reviewer's id: ")
         try:
+            new_reviewer_id = int(new_reviewer_id)
             task.reviewer_id = new_reviewer_id
             task.update()
             print(f"Task {task_id} reviewer updated to {new_reviewer_id}.")
@@ -199,35 +220,53 @@ def task_by_post_id():
     else:
         print(f"No tasks found for post {post_id}.")
 
-def sort_tasks(sort_by_created_at=True):
-    tasks = Task.get_all()
-    if tasks:
-        if sort_by_created_at:
-            sorted_tasks = sorted(tasks, key=lambda x: x.created_at, reverse=False)
-        else:
-            sorted_tasks = sorted(tasks, key=lambda x: x.status)
-        for task in sorted_tasks:
-            print(task)
-    else:
-        print("No tasks found.")
+# def task_by_post_id():
+#     post_id = input("Enter the post's id: ")
+#     tasks = Task.find_by("post_id", post_id)
+#     if tasks:
+#         for task in tasks:
+#             print(task)
+#     else:
+#         print(f"No tasks found for post {post_id}.")
 
-def task_by_status(TASK_STATUS, tasks):
-    filtered_tasks = [task for task in tasks if task.TASK_STATUS == TASK_STATUS]
+# def sort_tasks(sort_by_created_at=True):
+#     tasks = Task.get_all()
+#     if tasks:
+#         if sort_by_created_at:
+#             sorted_tasks = sorted(tasks, key=lambda x: x.created_at, reverse=False)
+#         else:
+#             sorted_tasks = sorted(tasks, key=lambda x: x.status)
+#         for task in sorted_tasks:
+#             print(task)
+#     else:
+#         print("No tasks found.")
+
+# def task_by_status(STATUS_TYPES, tasks):
+#     filtered_tasks = [task for task in tasks if task.STATUS_TYPES == STATUS_TYPES]
+#     if filtered_tasks:
+#         for task in filtered_tasks:
+#             print(task)
+#     else:
+#         print(f'No tasks found with status: {STATUS_TYPES}')
+
+def task_by_status():
+    status = int(input("Enter task status (1 for assigned, 2 for in progress, 3 for closed, 4 for unassigned): "))
+    tasks = Task.get_all()
+    filtered_tasks = [task for task in tasks if task.status == status]
     if filtered_tasks:
         for task in filtered_tasks:
             print(task)
     else:
-        print(f'No tasks found with status: {TASK_STATUS}')
+        print(f'No tasks found with status: {status}')
 
 def sort_task_by_date(tasks):
     return sorted(tasks, key=lambda x: x.created_at)
 
-#! STILL NEEDS TESTING ONCE SEED IS COMPLETE!
 def update_task_status(new_status):
     task_id = input("Please Enter a Task Id: ")
     task = Task.find_by_id(task_id)
     if task:
-        task.TASK_STATUS = new_status
+        task.STATUS_TYPES = new_status
         try:
             task.update()
             print(f"Task {task_id} status updated to {new_status}.")
@@ -235,3 +274,15 @@ def update_task_status(new_status):
             return e
     else:
         print(f"Task {task_id} not found.")
+
+    # def update_task_status():
+    #     id_ = input("Enter the Task Id Number: ")
+    #     if task := Task.find_by_id(id_):
+    #         try:         
+    #             status = input("Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified")
+    #             task.status = status
+    #             print(f'Status Changed to: {status}')
+    #         except Exception as e:
+    #             print("Error updating statu: ",e)
+    #     else:
+    #         print(f'Task{id_} not found')

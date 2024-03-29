@@ -14,14 +14,13 @@ from helpers import (
     list_posts,
     update_post_badge,
     sort_post_by_interactions,
-    sort_post_by_oldest,
+    sort_post_by_newest,
     find_post_by_id,
     list_tasks,
     create_task,
     update_task_reviewer,
     task_by_reviewer_id,
     task_by_post_id,
-    sort_tasks,
     task_by_status,
     update_task_status
 )
@@ -47,32 +46,6 @@ def main():
             print("That option doesn't exist, please choose an option from the menu.")
 
 #! Sub Menus
-def manage_all_tasks():
-    m = "manage tasks"
-    while m == "manage tasks":
-        task_mgmt_menu()
-        choice = input ("> ")
-        if choice == "0":
-            create_task()
-        elif choice == "1":
-            sort_tasks()
-        elif choice == "2":
-            task_by_reviewer_id()
-        elif choice == "3":
-            task_by_post_id()
-        elif choice == "4":
-            task_by_status()
-        elif choice == "5":
-            update_task_reviewer()
-        elif choice == "6":
-            break
-        elif choice == "8":
-            exit_program()
-        elif choice == "9":
-            help()
-        else:
-            print("That option doesn't exist, please choose an option from the menu.")
-
 def my_tasks():
     m = "tasks"
     while m == "tasks":
@@ -95,6 +68,32 @@ def my_tasks():
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
+def manage_all_tasks():
+    m = "manage tasks"
+    while m == "manage tasks":
+        task_mgmt_menu()
+        choice = input ("> ")
+        if choice == "0":
+            list_tasks()
+        elif choice == "1":
+            create_task()
+        elif choice == "2":
+            task_by_reviewer_id()
+        elif choice == "3":
+            task_by_post_id()
+        elif choice == "4":
+            task_by_status()
+        elif choice == "5":
+            update_task_reviewer()
+        elif choice == "6":
+            break
+        elif choice == "8":
+            exit_program()
+        elif choice == "9":
+            help()
+        else:
+            print("That option doesn't exist, please choose an option from the menu.")
+
 def manage_posts():
     while True:
         post_mgmt_menu()
@@ -104,12 +103,10 @@ def manage_posts():
         elif choice == "1":
             sort_post_by_interactions()
         elif choice == "2":
-            sort_post_by_oldest()
+            sort_post_by_newest()
         elif choice == "3":
             find_post_by_id()
         elif choice == "4":
-            find_post_by_reviewer()
-        elif choice == "5":
             break
         elif choice == "8":
             exit_program()
@@ -186,8 +183,8 @@ def my_task_menu():
 
 def task_mgmt_menu():
     print("[bold cyan]Manage Tasks[/bold cyan]")
-    print("[bold green]0[/bold green]: Create Tasks")
-    print("[bold green]1[/bold green]: Sort Tasks")
+    print("[bold green]0[/bold green]: View All")
+    print("[bold green]1[/bold green]: Create Tasks")
     print("[bold green]2[/bold green]: Find Task by Reviewer Id")
     print("[bold green]3[/bold green]: Find Task by Post Id")
     print("[bold green]4[/bold green]: Find Task by Status")
@@ -200,10 +197,9 @@ def post_mgmt_menu():
     print("[bold cyan]Manage Posts[/bold cyan]")
     print("[bold green]0[/bold green]: View All")
     print("[bold green]1[/bold green]: Most Viral Post")
-    print("[bold green]2[/bold green]: Sort Post by Oldest to Newest")
+    print("[bold green]2[/bold green]: Sort by Most Recent")
     print("[bold green]3[/bold green]: Find Post by Id")
-    print("[bold green]4[/bold green]: Find Post by Reviewer")
-    print("[bold green]5[/bold green]: Back to Main Menu")
+    print("[bold green]4[/bold green]: Back to Main Menu")
     print("[bold green]8[/bold green]: Exit program")
     print("[bold green]9[/bold green]: Help")
 
