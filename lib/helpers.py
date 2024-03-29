@@ -221,6 +221,15 @@ def task_by_post_id():
     else:
         print(f"No tasks found for post {post_id}.")
 
+# def task_by_post_id():
+#     post_id = input("Enter the post's id: ")
+#     tasks = Task.find_by("post_id", post_id)
+#     if tasks:
+#         for task in tasks:
+#             print(task)
+#     else:
+#         print(f"No tasks found for post {post_id}.")
+
 def sort_tasks(sort_by_created_at=True):
     tasks = Task.get_all()
     if tasks:
@@ -233,13 +242,22 @@ def sort_tasks(sort_by_created_at=True):
     else:
         print("No tasks found.")
 
-def task_by_status(STATUS_TYPES, tasks):
-    filtered_tasks = [task for task in tasks if task.STATUS_TYPES == STATUS_TYPES]
+# def task_by_status(STATUS_TYPES, tasks):
+#     filtered_tasks = [task for task in tasks if task.STATUS_TYPES == STATUS_TYPES]
+#     if filtered_tasks:
+#         for task in filtered_tasks:
+#             print(task)
+#     else:
+#         print(f'No tasks found with status: {STATUS_TYPES}')
+
+def task_by_status(status):
+    tasks = Task.get_all()
+    filtered_tasks = [task for task in tasks if task.status == status]
     if filtered_tasks:
         for task in filtered_tasks:
             print(task)
     else:
-        print(f'No tasks found with status: {STATUS_TYPES}')
+        print(f'No tasks found with status: {status}')
 
 def sort_task_by_date(tasks):
     return sorted(tasks, key=lambda x: x.created_at)
