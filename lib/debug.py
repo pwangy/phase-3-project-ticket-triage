@@ -2,9 +2,7 @@
 # lib/debug.py
 # from rich import print
 from rich.console import Console
-from rich import inspect
 import rich
-
 from classes.__init__ import CONN, CURSOR
 from classes.reviewer import Reviewer
 from classes.post import Post
@@ -54,7 +52,7 @@ def setup_db():
     console.print(p3)
     console.print(p4)
     console.print(p5)
-    console.print(p6, style='bold underline blue')
+    console.print(p6)
 
     t1 = Task.create(2, 2, 1)
     t2 = Task.create(1, 4, 3)
