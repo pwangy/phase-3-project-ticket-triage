@@ -1,4 +1,6 @@
 # lib/helpers.py
+from rich import print
+from rich.table import Table
 from classes.reviewer import Reviewer
 from classes.post import Post
 from classes.task import Task
@@ -12,8 +14,15 @@ def exit_program():
 #! Reviewer Helpers
 def list_reviewers():
     reviewers = Reviewer.get_all()
-    for reviewer in reviewers:
-        print(reviewer)
+    if reviewers:
+        table = Table(title="Reviewers")
+        table.add_column("ID", justify="right")
+        table.add_column("Name")
+        for reviewer in reviewers:
+            table.add_row(str(reviewer.id), reviewer.name)
+        print(table)
+    else:
+        print("No reviewers found.")
     
 def find_reviewer_by_id():
     id_ = input("Enter the reviewer's id: ")
