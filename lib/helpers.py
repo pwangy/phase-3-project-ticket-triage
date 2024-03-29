@@ -80,7 +80,7 @@ def update_post_badge():
     if new_badge:
         new_badge.rev
 
-#! Task Helpers
+#Task
 def list_tasks():
     tasks = Task.get_all()
     if tasks:
@@ -127,4 +127,3 @@ def update_task_status(new_status):
             return e
     else:
         print(f"Task {task_id} not found.")
-
