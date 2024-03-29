@@ -21,7 +21,6 @@ from helpers import (
     update_task_reviewer,
     task_by_reviewer_id,
     task_by_post_id,
-    sort_tasks,
     task_by_status,
     update_task_status
 )
@@ -79,21 +78,20 @@ def manage_all_tasks():
         elif choice == "1":
             create_task()
         elif choice == "2":
-            sort_tasks()
-        elif choice == "3":
             task_by_reviewer_id()
-        elif choice == "4":
+        elif choice == "3":
             task_by_post_id()
-        elif choice == "5":
+        elif choice == "4":
             task_by_status()
-        elif choice == "6":
+        elif choice == "5":
             update_task_reviewer()
-        elif choice == "7":
+        elif choice == "6":
             break
-        elif choice == "8":
+        elif choice == "7":
             exit_program()
-        elif choice == "9":
+        elif choice == "8":
             help()
+
         else:
             print("That option doesn't exist, please choose an option from the menu.")
 
@@ -188,14 +186,13 @@ def task_mgmt_menu():
     print("[bold cyan]Manage Tasks[/bold cyan]")
     print("[bold green]0[/bold green]: View All")
     print("[bold green]1[/bold green]: Create Tasks")
-    print("[bold green]2[/bold green]: Sort Tasks")
-    print("[bold green]3[/bold green]: Find Task by Reviewer Id")
-    print("[bold green]4[/bold green]: Find Task by Post Id")
-    print("[bold green]5[/bold green]: Find Task by Status")
-    print("[bold green]6[/bold green]: Update Task Reviewer")
-    print("[bold green]7[/bold green]: Back to Main Menu")
-    print("[bold green]8[/bold green]: Exit program")
-    print("[bold green]9[/bold green]: Help")
+    print("[bold green]2[/bold green]: Find Task by Reviewer Id")
+    print("[bold green]3[/bold green]: Find Task by Post Id")
+    print("[bold green]4[/bold green]: Find Task by Status")
+    print("[bold green]5[/bold green]: Update Task Reviewer")
+    print("[bold green]6[/bold green]: Back to Main Menu")
+    print("[bold green]7[/bold green]: Exit program")
+    print("[bold green]8[/bold green]: Help")
 
 def post_mgmt_menu():
     print("[bold cyan]Manage Posts[/bold cyan]")

@@ -229,17 +229,17 @@ def task_by_post_id():
 #     else:
 #         print(f"No tasks found for post {post_id}.")
 
-def sort_tasks(sort_by_created_at=True):
-    tasks = Task.get_all()
-    if tasks:
-        if sort_by_created_at:
-            sorted_tasks = sorted(tasks, key=lambda x: x.created_at, reverse=False)
-        else:
-            sorted_tasks = sorted(tasks, key=lambda x: x.status)
-        for task in sorted_tasks:
-            print(task)
-    else:
-        print("No tasks found.")
+# def sort_tasks(sort_by_created_at=True):
+#     tasks = Task.get_all()
+#     if tasks:
+#         if sort_by_created_at:
+#             sorted_tasks = sorted(tasks, key=lambda x: x.created_at, reverse=False)
+#         else:
+#             sorted_tasks = sorted(tasks, key=lambda x: x.status)
+#         for task in sorted_tasks:
+#             print(task)
+#     else:
+#         print("No tasks found.")
 
 # def task_by_status(STATUS_TYPES, tasks):
 #     filtered_tasks = [task for task in tasks if task.STATUS_TYPES == STATUS_TYPES]
@@ -249,7 +249,8 @@ def sort_tasks(sort_by_created_at=True):
 #     else:
 #         print(f'No tasks found with status: {STATUS_TYPES}')
 
-def task_by_status(status):
+def task_by_status():
+    status = int(input("Enter task status (1 for assigned, 2 for in progress, 3 for closed, 4 for unassigned): "))
     tasks = Task.get_all()
     filtered_tasks = [task for task in tasks if task.status == status]
     if filtered_tasks:
@@ -261,7 +262,6 @@ def task_by_status(status):
 def sort_task_by_date(tasks):
     return sorted(tasks, key=lambda x: x.created_at)
 
-#! STILL NEEDS TESTING ONCE SEED IS COMPLETE!
 def update_task_status(new_status):
     task_id = input("Please Enter a Task Id: ")
     task = Task.find_by_id(task_id)
