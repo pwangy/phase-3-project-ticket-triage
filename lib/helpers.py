@@ -4,7 +4,6 @@ from rich.table import Table
 from classes.reviewer import Reviewer
 from classes.post import Post
 from classes.task import Task
-    # import ipdb; ipdb.set_trace()
 
 
 def exit_program():
@@ -146,12 +145,7 @@ def update_post_badge():
     else:
         print(f"Post {post_id} not found.")
 
-<<<<<<< HEAD
-#! Task Helpers
-#! STILL NEEDS TESTING ONCE SEED IS COMPLETE!
-=======
 #Task
->>>>>>> main
 def list_tasks():
     tasks = Task.get_all()
     if tasks:
