@@ -146,8 +146,12 @@ def update_post_badge():
     else:
         print(f"Post {post_id} not found.")
 
+<<<<<<< HEAD
 #! Task Helpers
 #! STILL NEEDS TESTING ONCE SEED IS COMPLETE!
+=======
+#Task
+>>>>>>> main
 def list_tasks():
     tasks = Task.get_all()
     if tasks:
@@ -237,4 +241,3 @@ def update_task_status(new_status):
             return e
     else:
         print(f"Task {task_id} not found.")
-

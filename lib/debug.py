@@ -56,12 +56,10 @@ def setup_db():
     console.print(p5)
     console.print(p6, style='bold underline blue')
 
-    t1 = Task.create(2, "Mon", "Tues", 2, 1)
-    t2 = Task.create(1, "1", "F", 4, 3)
-    t3 = Task.create(3, "t", "s", 3, 4)
+    t1 = Task.create(2, 2, 1)
+    t2 = Task.create(1, 4, 3)
     console.print(t1)
     console.print(t2)
-    console.print(t3)
 
 if __name__ == '__main__':
     setup_db()
