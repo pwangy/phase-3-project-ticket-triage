@@ -74,7 +74,7 @@ def manage_all_tasks():
         task_mgmt_menu()
         choice = input ("TICKET TRIAGE > MANAGE TASKS > ")
         if choice == "0":
-            list_tasks() #! breaking
+            list_tasks()
         elif choice == "1":
             create_task()
         elif choice == "2":

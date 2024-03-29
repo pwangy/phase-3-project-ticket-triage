@@ -29,7 +29,7 @@ class Post:
 
     def __repr__(self):
         return (
-            f"""<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self._review_badge}>"""
+            f"""<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}"""
         )
 
     @staticmethod # belongs to class, not its instances. can be called without creating an instance
