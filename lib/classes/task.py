@@ -12,13 +12,6 @@ STATUS_TYPES = [
     4 # unassigned
 ]
 
-# TASK_STATUS = [
-#     'assigned',
-#     'in_progress',
-#     'closed',
-#     'unassigned'
-# ]
-
 class Task:
     all = {}
 
@@ -240,16 +233,3 @@ class Task:
             return self
         except Exception as e:
             return e
-
-    #! should this live in helpers?
-    # def update_task_status():
-    #     id_ = input("Enter the Task Id Number: ")
-    #     if task := Task.find_by_id(id_):
-    #         try:         
-    #             status = input("Enter 2 for Status = In Process, 3 for Failed Verification, or 4 for Verified")
-    #             task.status = status
-    #             print(f'Status Changed to: {status}')
-    #         except Exception as e:
-    #             print("Error updating statu: ",e)
-    #     else:
-    #         print(f'Task{id_} not found')
