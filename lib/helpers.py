@@ -35,7 +35,7 @@ def find_reviewer_by_id():
     print(reviewer) if reviewer else print(f'Reviewer {id_} not found')
 
 def find_reviewer_by_name():
-    name = input("Enter the reviewer's name: ")
+    name = input("Enter the reviewer's full name: ")
     reviewer_by_name = [reviewer for reviewer in Reviewer.get_all() if reviewer.name.lower() == name.lower()]
     if reviewer_by_name:
         for reviewer in reviewer_by_name:

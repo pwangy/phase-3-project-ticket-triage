@@ -56,10 +56,10 @@ def my_tasks():
         elif choice == "1":
             update_post_badge()
         elif choice == "2":
-            update_task_status("completed")
+            update_task_status(3)
+        # elif choice == "3":
+            # list_tasks()
         elif choice == "3":
-            list_tasks()
-        elif choice == "4":
             main()
         elif choice == "8":
             exit_program()
@@ -74,7 +74,7 @@ def manage_all_tasks():
         task_mgmt_menu()
         choice = input ("TICKET TRIAGE > MANAGE TASKS > ")
         if choice == "0":
-            list_tasks()
+            list_tasks() #! breaking
         elif choice == "1":
             create_task()
         elif choice == "2":
@@ -176,8 +176,8 @@ def my_task_menu():
     print("[bold green]0[/]: Begin Task")
     print("[bold green]1[/]: Update Post Badge")
     print("[bold green]2[/]: Complete Task")
-    print("[bold green]3[/]: Task List") #
-    print("[bold green]4[/]: Back to Main Menu")
+    # print("[bold green]3[/]: Task List") #!
+    print("[bold green]3[/]: Back to Main Menu")
     print("[bold green]8[/]: Exit")
     print("[bold green]9[/]: Help")
 
@@ -185,8 +185,8 @@ def task_mgmt_menu():
     print("[bold cyan]Manage Tasks[/]")
     print("[bold green]0[/]: View All")
     print("[bold green]1[/]: Create Tasks")
-    print("[bold green]2[/]: Find Task by Reviewer Id")
-    print("[bold green]3[/]: Find Task by Post Id")
+    print("[bold green]2[/]: Find Task by Reviewer ID")
+    print("[bold green]3[/]: Find Task by Post ID")
     print("[bold green]4[/]: Find Task by Status")
     print("[bold green]5[/]: Update Task Reviewer")
     print("[bold green]6[/]: Back to Main Menu")
@@ -198,7 +198,7 @@ def post_mgmt_menu():
     print("[bold green]0[/]: View All")
     print("[bold green]1[/]: Most Viral Post")
     print("[bold green]2[/]: Sort by Most Recent")
-    print("[bold green]3[/]: Find Post by Id")
+    print("[bold green]3[/]: Find Post by ID")
     print("[bold green]4[/]: Back to Main Menu")
     print("[bold green]8[/]: Exit")
     print("[bold green]9[/]: Help")
@@ -206,7 +206,7 @@ def post_mgmt_menu():
 def reviewer_mgmt_menu():
     print("[bold cyan]Manage Reviewers[/]")
     print("[bold green]0[/]: List Reviewers")
-    print("[bold green]1[/]: Find Reviewer by Id")
+    print("[bold green]1[/]: Find Reviewer by ID")
     print("[bold green]2[/]: Find Reviewer by Name")
     print("[bold green]3[/]: Update Reviewer")
     print("[bold green]4[/]: Add Reviewer")

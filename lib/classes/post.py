@@ -29,7 +29,7 @@ class Post:
 
     def __repr__(self):
         return (
-            f"""<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self.review_badge}>"""
+            f"""<Post {self.id}: Creation Date: {self.created_at}, Interactions: {self.total_interactions}, Content Type: {self.content_type}, Viral: {self.is_viral}, Review Badge: {self._review_badge}>"""
         )
 
     @staticmethod # belongs to class, not its instances. can be called without creating an instance
@@ -208,7 +208,8 @@ class Post:
     def _create_post_from_row(cls, row):
         if row:
             # created_at = datetime.strptime(row[3], "%Y-%m-%d %H:%M:%S")
-            return cls(row[1], row[2], row[0], created_at, row[4], row[5])
+            # return cls(row[1], row[2], row[0], created_at, row[4], row[5])
+            return cls(row[1], row[2], row[0]) # make cli work
         return None
 
     #! ORM Instance Methods
