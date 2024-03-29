@@ -18,7 +18,7 @@ class Task:
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
         self.reviewer_id = 0
-        self.status = status
+        self.set_status(status)
         self.id = id
 
     def __repr__(self):
@@ -75,9 +75,9 @@ class Task:
         else:
             self._reviewer_id = reviewer_id
 
-    def status(self, new_status):
+    def set_status(self, new_status):
         if not new_status in STATUS_TYPES:
-            raise ValueError("'status' must be in list of STATUS_TYPES")
+            raise ValueError("status must be in list of STATUS_TYPES")
         else:
             self.status = new_status
 
@@ -89,24 +89,6 @@ class Task:
     def reviewer(self):
         from classes.reviewer import Reviewer
         return Reviewer.find_by_id(self.reviewer_id) if self.reviewer_id else None
-
-    def viral_post(self):
-        from classes.post import Post
-        try:
-            with CONN:
-                CURSOR.execute(
-                    """
-                    SELECT * FROM posts
-                    WHERE is_viral = 1
-                    """,
-                    (self.id,),
-                )
-                rows = CURSOR.fetchall()
-                return [
-                    Post(row[1], row[2], row[3], row[4], row[5], row[0]) for row in rows
-                ]
-        except Exception as e:
-            return (f"Error fetching posts: ", e)
 
     #! ORM Class Methods
     @classmethod
@@ -139,12 +121,11 @@ class Task:
             return e
 
     @classmethod
-    def create(cls, post_id, reviewer_id, status):
+    def create(cls, post_id, status, reviewer_id=0):
         try:
             with CONN:
-                new_task = cls(post_id, reviewer_id, status)
-                new_task.save()
-            return new_task
+                task = cls(post_id, status, reviewer_id)
+            return task.save()
         except Exception as e:
             return (f"{e} Task was not created")
 

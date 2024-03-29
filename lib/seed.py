@@ -19,6 +19,12 @@ STATUS_TYPES = [
     4 # unassigned
 ]
 
+FACT_CHECKED = [
+    'Verified',
+    'Debunked',
+    'Caution'
+]
+
 def drop_tables():
     Task.drop_table()
     Reviewer.drop_table()
@@ -40,12 +46,13 @@ def seed_tables():
     for _ in range(10): #create non-viral posts
         try:
             number = fake.random_int(min=1, max=3499999)
-            Post.create(number, fake.random_element(elements=CONTENT_TYPES), review_badge=None)
+            review_badge = fake.random_element(elements=FACT_CHECKED)
+            Post.create(number, fake.random_element(elements=CONTENT_TYPES), review_badge)
             print('Created post')
         except Exception as e:
             print("Failed to create Post: ", e)
 
-    for _ in range(250): #create viral posts
+    for _ in range(240): #create viral posts
         try:
             number = fake.random_int(min=3500000, max=200000000)
             Post.create(number, fake.random_element(elements=CONTENT_TYPES), review_badge=None)
@@ -53,14 +60,23 @@ def seed_tables():
         except Exception as e:
             print("Failed to create Post: ", e)
 
-def seed_tasks():
-    posts = Post.get_all()
-    for post in posts:
+    for i in range(11, 250):
         try:
-            Task.create(post.task)
-            print('Created task for post: ', post.id)
+            status = fake.random_element(elements=STATUS_TYPES)
+            Task.create(post_id=i, status=status)
+            print('Created task')
         except Exception as e:
             print("Failed to create Task: ", e)
+
+# def create_tasks():
+#     posts = Post.get_all()
+#     for post in posts:
+#         try:
+#             if post.is_viral:
+#                 Task.create(post.id, status=4)
+#                 print('Created task for post:', post.id)
+#         except Exception as e:
+#             print("Failed to create task for post:", post.id, "Error:", e)
 
 if __name__ == "__main__":
     drop_tables()
@@ -68,7 +84,6 @@ if __name__ == "__main__":
     create_tables()
     print("Tables created!")
     seed_tables()
-    print("Seed reviewers and posts!")
-    seed_tasks()
-    print("Finished seeding Tasks! ticket_triage.db has been seeded!")
+    # create_tasks()
+    print("db seeded!")
     import ipdb; ipdb.set_trace()
