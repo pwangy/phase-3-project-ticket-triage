@@ -38,13 +38,13 @@ other steps...
 - [x] Pipfile contains all needed dependencies and no unneeded dependencies.
 - [x] Imports are used in files only where necessary.
 - [x] Project folders, files, and modules should be organized and follow appropriate naming conventions.
-- [ ] well-organized code (separate classes for separate responsibilities) respect OO principles (SST, SOC, SOLID)
-- [ ] The project should include a README.md that describes the application.
+- [x] well-organized code (separate classes for separate responsibilities) respect OO principles (SST, SOC, SOLID)
+- [x] The project should include a README.md that describes the application.
 
 ### CLI Requirements
 - [x] The CLI must display menus with which a user may interact.
-- [ ] The CLI should use loops as needed to keep the user in the application until they choose to exit.
-- [ ] The CLI should validate user input and object creations/deletions, providing informative errors to the user.
+- [x] The CLI should use loops as needed to keep the user in the application until they choose to exit.
+- [x] The CLI should validate user input and object creations/deletions, providing informative errors to the user.
 - [x] Make sure your CLI has the option to quit/exit the program at any point and it doesn’t break on its own otherwise
 
 ### Classes/ Modules
@@ -56,17 +56,14 @@ other steps...
 - [x] Once a post reaches viral status, a Task is created and has an associated Reviewer
 
 ### CLI: User(Reviewer) can:
-- [ ] create an object
-- [ ] delete an object 
-- [ ] display all objects 
-- [ ] view related objects 
-- [ ] find an object by attribute
-- [ ] reviewer should be able to log in and check their list of tasks
-- [ ] update task status
-- [ ] update review_badge in Post
-- [ ] manage reviewers
-- [ ] see all posts
-- [ ] see all tasks
+- [x] create an object
+- [x] delete an object 
+- [x] display all objects 
+- [x] view related objects 
+- [x] find an object by attribute
+- [x] reviewer should be able to log in and check their list of tasks
+- [x] update task status
+
 
 ### Stretch / Roadmap
 - [ ] After the post is reviewed and is found to be false, then figure out what action should be taken
@@ -79,7 +76,6 @@ other steps...
 ## Authors
 - [Gabriella Richmond](https://github.com/gabriellarichmo)
 - [Peggy Wang](https://github.com/pwangy)
-- [Chris Kjolhede](https://github.com/CKjolhede)
 
 
 ## Tech
